@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1663203283667.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9C4AECD9",
+    "lastKnownWriteTime" : 1663205269,
+    "last_content_update" : 1663205760244,
+    "path" : "/Volumes/Samsung_T5/DIA-QC/DIA/R/CV_protein_abundance_scatter.R",
+    "project_path" : "CV_protein_abundance_scatter.R",
+    "properties" : {
+        "cursorPosition" : "150,0",
+        "scrollLine" : "134"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

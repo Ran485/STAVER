@@ -1,0 +1,24 @@
+{
+    "id": "EEF90A0D",
+    "path": "/Volumes/T7_Shield/DIA-QC/DIA/R/Multi_group_DEP_analysis.R",
+    "project_path": "Multi_group_DEP_analysis.R",
+    "type": "r_source",
+    "hash": "254189551",
+    "contents": "",
+    "dirty": false,
+    "created": 1675299915291.0,
+    "source_on_save": false,
+    "relative_order": 17,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1651583188,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1651583188,
+    "read_only": false,
+    "read_only_alternatives": []
+}

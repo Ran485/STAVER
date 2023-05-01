@@ -1,0 +1,24 @@
+{
+    "id": "FAA1977F",
+    "path": "/Volumes/T7_Shield/DIANN_Data/merge_data/data/processed_data/Barplot_Normal/heatmap_pval_log.csv",
+    "project_path": null,
+    "type": "text",
+    "hash": "392105720",
+    "contents": "",
+    "dirty": false,
+    "created": 1677031306959.0,
+    "source_on_save": false,
+    "relative_order": 21,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1677030229,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1677030229,
+    "read_only": false,
+    "read_only_alternatives": []
+}

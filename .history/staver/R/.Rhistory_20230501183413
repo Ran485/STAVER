@@ -1,0 +1,657 @@
+sx_syn <- read.csv("/Volumes/T7_Shield/DIANN_Data/merge_data/data/processed_data/Barplot_Normal/heatmap_pval.csv", header = TRUE)
+Shime1x_syn_spearman1 <- Heatmap(sx_syn, circlize::colorRamp2(
+    c(-1, -0.5, 0, 0.5, 1),
+    c(
+        "#d7191c", "#fdae61",
+        "#FFFFFF", "#abd9e9",
+        "#2c7bb6"
+    )
+),
+column_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+row_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+heatmap_legend_param = list(
+    title = "Spearman's rho",
+    direction = "horizontal",
+    at = c(-1, -0.5, 0, 0.5, 1)
+),
+cell_fun = function(j, i, x, y, w, h, fill) {
+    if (sx_syn_p[i, j] < 0.05) {
+        grid.text("*", x, y)
+    }
+}
+)
+sx_syn1_spear <- draw(Shime1x_syn_spearman1, heatmap_legend_side = "top")
+sx_syn
+sx_syn <- read.csv("/Volumes/T7_Shield/DIANN_Data/merge_data/data/processed_data/Barplot_Normal/heatmap_pval.csv", header = TRUE)
+Shime1x_syn_spearman1 <- Heatmap(sx_syn, circlize::colorRamp2(
+    c(0, 0.05, 1),
+    c(
+        "#d7191c", "#fdae61",
+        "#FFFFFF", "#abd9e9",
+        "#2c7bb6"
+    )
+),
+column_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+row_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+heatmap_legend_param = list(
+    title = "Spearman's rho",
+    direction = "horizontal",
+    at = c(-1, -0.5, 0, 0.5, 1)
+),
+cell_fun = function(j, i, x, y, w, h, fill) {
+    if (sx_syn_p[i, j] < 0.05) {
+        grid.text("*", x, y)
+    }
+}
+)
+sx_syn1_spear <- draw(Shime1x_syn_spearman1, heatmap_legend_side = "top")
+sx_syn <- read.csv("/Volumes/T7_Shield/DIANN_Data/merge_data/data/processed_data/Barplot_Normal/heatmap_pval.csv", header = TRUE)
+Shime1x_syn_spearman1 <- Heatmap(sx_syn, circlize::colorRamp2(
+    c(0, 0.05, 0.1, 1),
+    c(
+        "#d7191c", "#fdae61",
+        "#FFFFFF", "#abd9e9",
+        "#2c7bb6"
+    )
+),
+column_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+row_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+heatmap_legend_param = list(
+    title = "Spearman's rho",
+    direction = "horizontal",
+    at = c(-1, -0.5, 0, 0.5, 1)
+),
+cell_fun = function(j, i, x, y, w, h, fill) {
+    if (sx_syn_p[i, j] < 0.05) {
+        grid.text("*", x, y)
+    }
+}
+)
+sx_syn1_spear <- draw(Shime1x_syn_spearman1, heatmap_legend_side = "top")
+Shime1x_syn_spearman1 <- Heatmap(sx_syn, circlize::colorRamp2(
+    c(0, 0.05, 0.1, 0.5, 1),
+    c(
+        "#d7191c", "#fdae61",
+        "#FFFFFF", "#abd9e9",
+        "#2c7bb6"
+    )
+),
+column_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+row_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+heatmap_legend_param = list(
+    title = "Spearman's rho",
+    direction = "horizontal",
+    at = c(-1, -0.5, 0, 0.5, 1)
+),
+cell_fun = function(j, i, x, y, w, h, fill) {
+    if (sx_syn_p[i, j] < 0.05) {
+        grid.text("*", x, y)
+    }
+}
+)
+sx_syn1_spear <- draw(Shime1x_syn_spearman1, heatmap_legend_side = "top")
+sx_syn <- read.csv("/Volumes/T7_Shield/DIANN_Data/merge_data/data/processed_data/Barplot_Normal/heatmap_pval.csv", header = TRUE)
+Shime1x_syn_spearman1 <- Heatmap(sx_syn, circlize::colorRamp2(
+    c(-1, -0.5, 0, 0.5, 1),
+    c(
+        "#d7191c", "#fdae61",
+        "#FFFFFF", "#abd9e9",
+        "#2c7bb6"
+    )
+),
+column_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+row_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+heatmap_legend_param = list(
+    title = "Spearman's rho",
+    direction = "horizontal",
+    at = c(-1, -0.5, 0, 0.5, 1)
+),
+cell_fun = function(j, i, x, y, w, h, fill) {
+    if (sx_syn_p[i, j] < 0.05) {
+        grid.text("*", x, y)
+    }
+}
+)
+sx_syn1_spear <- draw(Shime1x_syn_spearman1, heatmap_legend_side = "top")
+sx_syn <- read.csv("/Volumes/T7_Shield/DIANN_Data/merge_data/data/processed_data/Barplot_Normal/heatmap_pval.csv", header = TRUE)
+Shime1x_syn_spearman1 <- Heatmap(sx_syn, circlize::colorRamp2(
+    c(-1, -0.5, 0, 0.5, 1),
+    c(
+        "#d7191c", "#fdae61",
+        "#FFFFFF", "#abd9e9",
+        "#2c7bb6"
+    )
+),
+column_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+row_names_gp = grid::gpar(
+    fontsize = 20,
+    col = c(rep("#4daf4a", 8), rep("#984ea3", 7))
+),
+heatmap_legend_param = list(
+    title = "Spearman's rho",
+    direction = "horizontal",
+    at = c(-1, -0.5, 0, 0.5, 1)
+),
+cell_fun = function(j, i, x, y, w, h, fill) {
+    if (sx_syn_p[i, j] < 0.05) {
+        grid.text("*", x, y)
+    }
+}
+)
+sx_syn1_spear <- draw(Shime1x_syn_spearman1, heatmap_legend_side = "top")
+options(stringsAsFactors = F)
+library(ComplexHeatmap)
+library(circlize)
+library(tidyverse)
+library(tidyr) # 使用的gather & spread
+# 加载数据
+datP0 <- read.csv("/Users/ranpeng/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/3649a4de6148e48997bb3510ceb05bd7/Message/MessageTemp/352d2a74a14224b5eb99147fc90e7838/File/unsigned pearson FALSE 30 correlation 1.csv", sep = ",", header = TRUE) # 宽数据
+# 使用gather函数将宽数据datP0转换为长数据datP0_long
+datP0_long <- gather(datP0, key = "Clinical_feature", value = "Pvalue", -"Module")
+# 分组后再转换回P值的宽数据格式 ps:行列顺序改变成升序
+datP <- datP0_long %>%
+    mutate(p = cut(
+        x = Pvalue,
+        breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),
+        labels = c("***", "**", "*", "")
+    )) %>%
+    select(Module, Clinical_feature, p) %>%
+    spread(key = Clinical_feature, value = p) %>%
+    column_to_rownames(var = "Module")
+# 注意：datCor读入之前需调整顺序成行及列均为升序，与前面转化后的datP顺序保持一致
+datCor <- read.csv(" unsigned pearson FALSE 30 correlation.csv", sep = ",", header = TRUE, row.names = 1) # 宽数据
+# 自定义颜色
+col_fun <- colorRamp2(
+    breaks = c(min(datCor), 0, max(datCor)),
+    colors = c("#2b8cbe", "white", "#e41a1c")
+)
+# 定义添加文本的函数
+# 定义一个自定义函数。函数定义了如果都是数值的话，保留三位小数，如果不是的话，则全部显示。
+TextFunc <- function(dat, col = "black", fontsize = 12, numdat = TRUE,
+                     digit = 2) {
+    if (numdat == TRUE) {
+        function(j, i, x, y, width, height, fill) {
+            grid.text(round(dat, digit)[i, j], x, y, gp = gpar(fontsize = fontsize, col = col))
+        }
+    } else {
+        function(j, i, x, y, width, height, fill) {
+            grid.text(dat[i, j], x, y, gp = gpar(fontsize = fontsize, col = col))
+        }
+    }
+}
+# 绘制添加数字的热图
+## 添加数字的热图
+Heatmap(datCor,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datCor)
+)
+# 绘制添加P值的热图
+# Module列升序，跟前面datCor保持一致
+annotation_row <- read.delim("rowannotaiton.txt", row.names = 1)
+# 加载数据
+datP0 <- read.csv("/Users/ranpeng/Downloads/unsigned pearson FALSE 30 pvalue.csv", sep = ",", header = TRUE) # 宽数据
+# 使用gather函数将宽数据datP0转换为长数据datP0_long
+datP0_long <- gather(datP0, key = "Clinical_feature", value = "Pvalue", -"Module")
+# 分组后再转换回P值的宽数据格式 ps:行列顺序改变成升序
+datP <- datP0_long %>%
+    mutate(p = cut(
+        x = Pvalue,
+        breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),
+        labels = c("***", "**", "*", "")
+    )) %>%
+    select(Module, Clinical_feature, p) %>%
+    spread(key = Clinical_feature, value = p) %>%
+    column_to_rownames(var = "Module")
+# 注意：datCor读入之前需调整顺序成行及列均为升序，与前面转化后的datP顺序保持一致
+datCor <- read.csv("/Users/ranpeng/Downloads/unsigned pearson FALSE 30 correlation.csv", sep = ",", header = TRUE, row.names = 1) # 宽数据
+# 自定义颜色
+col_fun <- colorRamp2(
+    breaks = c(min(datCor), 0, max(datCor)),
+    colors = c("#2b8cbe", "white", "#e41a1c")
+)
+# 定义添加文本的函数
+# 定义一个自定义函数。函数定义了如果都是数值的话，保留三位小数，如果不是的话，则全部显示。
+TextFunc <- function(dat, col = "black", fontsize = 12, numdat = TRUE,
+                     digit = 2) {
+    if (numdat == TRUE) {
+        function(j, i, x, y, width, height, fill) {
+            grid.text(round(dat, digit)[i, j], x, y, gp = gpar(fontsize = fontsize, col = col))
+        }
+    } else {
+        function(j, i, x, y, width, height, fill) {
+            grid.text(dat[i, j], x, y, gp = gpar(fontsize = fontsize, col = col))
+        }
+    }
+}
+# 绘制添加数字的热图
+## 添加数字的热图
+Heatmap(datCor,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datCor)
+)
+# 绘制添加P值的热图
+# Module列升序，跟前面datCor保持一致
+annotation_row <- read.delim("rowannotaiton.txt", row.names = 1)
+# 绘制添加P值的热图
+# Module列升序，跟前面datCor保持一致
+annotation_row <- read.delim("rowannotaiton.txt", row.names = 1)
+Module_col <- list("Module" = c(
+    "MEgrey" = "grey",
+    "MEcyan" = "cyan",
+    "MEmidnightblue" = "midnightblue",
+    "MEsalmon" = "salmon",
+    "MEblack" = "black",
+    "MEyellow" = "yellow",
+    "MEmagenta" = "magenta",
+    "MEblue" = "blue",
+    "MEred" = "red",
+    "MEpurple" = "purple",
+    "MEgreen" = "green",
+    "MEgreenyellow" = "greenyellow",
+    "MEtan" = "tan",
+    "MEpink" = "pink",
+    "MEbrown" = "brown",
+    "MEturquoise" = "turquoise"
+))
+ha <- HeatmapAnnotation(
+    df = annotation_row,
+    which = "row",
+    # Module = sample(Module,replace = TRUE),
+    col = Module_col,
+    annotation_width = unit(c(1, 4), "cm"),
+    gap = unit(1, "mm")
+)
+p1 <- Heatmap(datCor,
+    cluster_rows = T,
+    cluster_columns = T,
+    show_column_names = T,
+    show_row_names = T,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datP, numdat = F),
+    left_annotation = ha
+)
+textLeg <- Legend(
+    labels = c("P < 0.05", "P < 0.01", "P < 0.001"), title = "P.value", type = "points",
+    pch = c("*", "**", "***"), legend_gp = gpar(col = "black"), background = "white"
+)
+ht_opt$message <- FALSE
+draw(p1,
+    merge_legend = TRUE, heatmap_legend_side = "right",
+    annotation_legend_side = "right", annotation_legend_list = textLeg
+)
+# 注意：datCor读入之前需调整顺序成行及列均为升序，与前面转化后的datP顺序保持一致
+datCor <- read.csv("/Users/ranpeng/Downloads/unsigned pearson FALSE 30 correlation.csv", sep = ",", header = TRUE, row.names = 1) # 宽数据
+# 自定义颜色
+col_fun <- colorRamp2(
+    breaks = c(min(datCor), 0, max(datCor)),
+    colors = c("#2b8cbe", "white", "#e41a1c")
+)
+# 定义添加文本的函数
+# 定义一个自定义函数。函数定义了如果都是数值的话，保留三位小数，如果不是的话，则全部显示。
+TextFunc <- function(dat, col = "black", fontsize = 12, numdat = TRUE,
+                     digit = 2) {
+    if (numdat == TRUE) {
+        function(j, i, x, y, width, height, fill) {
+            grid.text(round(dat, digit)[i, j], x, y, gp = gpar(fontsize = fontsize, col = col))
+        }
+    } else {
+        function(j, i, x, y, width, height, fill) {
+            grid.text(dat[i, j], x, y, gp = gpar(fontsize = fontsize, col = col))
+        }
+    }
+}
+# 绘制添加数字的热图
+## 添加数字的热图
+Heatmap(datCor,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datCor)
+)
+ha <- HeatmapAnnotation(
+    df = annotation_row,
+    which = "row",
+    # Module = sample(Module,replace = TRUE),
+    col = Module_col,
+    annotation_width = unit(c(1, 4), "cm"),
+    gap = unit(1, "mm")
+)
+p1 <- Heatmap(datCor,
+    cluster_rows = T,
+    cluster_columns = T,
+    show_column_names = T,
+    show_row_names = T,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datP, numdat = F),
+    left_annotation = ha
+)
+textLeg <- Legend(
+    labels = c("P < 0.05", "P < 0.01", "P < 0.001"), title = "P.value", type = "points",
+    pch = c("*", "**", "***"), legend_gp = gpar(col = "black"), background = "white"
+)
+ht_opt$message <- FALSE
+draw(p1,
+    merge_legend = TRUE, heatmap_legend_side = "right",
+    annotation_legend_side = "right", annotation_legend_list = textLeg
+)
+# 绘制添加数字的热图
+## 添加数字的热图
+Heatmap(datCor,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datCor)
+)
+# 绘制添加数字的热图
+## 添加数字的热图
+Heatmap(datCor,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datCor)
+)
+p1 <- Heatmap(datCor,
+    cluster_rows = T,
+    cluster_columns = T,
+    show_column_names = T,
+    show_row_names = T,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datP, numdat = F),
+    left_annotation = ha
+)
+# 绘制添加数字的热图
+## 添加数字的热图
+Heatmap(datCor,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datCor)
+)
+# 注意：datCor读入之前需调整顺序成行及列均为升序，与前面转化后的datP顺序保持一致
+datCor <- read.csv("/Users/ranpeng/Downloads/unsigned pearson FALSE 30 correlation.csv", sep = ",", header = TRUE, row.names = 1) # 宽数据
+# 自定义颜色
+col_fun <- colorRamp2(
+    breaks = c(min(datCor), 0, max(datCor)),
+    colors = c("#2b8cbe", "white", "#e41a1c")
+)
+# 定义添加文本的函数
+# 定义一个自定义函数。函数定义了如果都是数值的话，保留三位小数，如果不是的话，则全部显示。
+TextFunc <- function(dat, col = "black", fontsize = 12, numdat = TRUE,
+                     digit = 2) {
+    if (numdat == TRUE) {
+        function(j, i, x, y, width, height, fill) {
+            grid.text(round(dat, digit)[i, j], x, y, gp = gpar(fontsize = fontsize, col = col))
+        }
+    } else {
+        function(j, i, x, y, width, height, fill) {
+            grid.text(dat[i, j], x, y, gp = gpar(fontsize = fontsize, col = col))
+        }
+    }
+}
+# 绘制添加数字的热图
+## 添加数字的热图
+Heatmap(datCor,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datCor)
+)
+ha <- HeatmapAnnotation(
+    df = annotation_row,
+    which = "row",
+    # Module = sample(Module,replace = TRUE),
+    col = Module_col,
+    annotation_width = unit(c(1, 4), "cm"),
+    gap = unit(1, "mm")
+)
+p1 <- Heatmap(datCor,
+    cluster_rows = T,
+    cluster_columns = T,
+    show_column_names = T,
+    show_row_names = T,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datP, numdat = F),
+    left_annotation = ha
+)
+textLeg <- Legend(
+    labels = c("P < 0.05", "P < 0.01", "P < 0.001"), title = "P.value", type = "points",
+    pch = c("*", "**", "***"), legend_gp = gpar(col = "black"), background = "white"
+)
+# 绘制添加P值的热图
+# Module列升序，跟前面datCor保持一致
+annotation_row <- read.delim("/Users/ranpeng/Downloads/rowannotaiton.txt", row.names = 1)
+Module_col <- list("Module" = c(
+    "MEgrey" = "grey",
+    "MEcyan" = "cyan",
+    "MEmidnightblue" = "midnightblue",
+    "MEsalmon" = "salmon",
+    "MEblack" = "black",
+    "MEyellow" = "yellow",
+    "MEmagenta" = "magenta",
+    "MEblue" = "blue",
+    "MEred" = "red",
+    "MEpurple" = "purple",
+    "MEgreen" = "green",
+    "MEgreenyellow" = "greenyellow",
+    "MEtan" = "tan",
+    "MEpink" = "pink",
+    "MEbrown" = "brown",
+    "MEturquoise" = "turquoise"
+))
+ha <- HeatmapAnnotation(
+    df = annotation_row,
+    which = "row",
+    # Module = sample(Module,replace = TRUE),
+    col = Module_col,
+    annotation_width = unit(c(1, 4), "cm"),
+    gap = unit(1, "mm")
+)
+p1 <- Heatmap(datCor,
+    cluster_rows = T,
+    cluster_columns = T,
+    show_column_names = T,
+    show_row_names = T,
+    name = "Correlation", col = col_fun,
+    rect_gp = gpar(col = "white", lwd = 1), cell_fun = TextFunc(datP, numdat = F),
+    left_annotation = ha
+)
+textLeg <- Legend(
+    labels = c("P < 0.05", "P < 0.01", "P < 0.001"), title = "P.value", type = "points",
+    pch = c("*", "**", "***"), legend_gp = gpar(col = "black"), background = "white"
+)
+ht_opt$message <- FALSE
+draw(p1,
+    merge_legend = TRUE, heatmap_legend_side = "right",
+    annotation_legend_side = "right", annotation_legend_list = textLeg
+)
+library("ggplot2")
+library(plyr)
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$Coefficient.of.Variation.... <- as.numeric(df$Coefficient.of.Variation....)
+mu <- ddply(df, "Type", summarise, grp.mean = median(Coefficient.of.Variation....))
+head(mu)
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = median(weight))
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = median(weight))
+head(mu)
+# Basic density
+ggplot(df, aes(x = weight, fill = sex)) +
+    geom_density(fill = "gray") +
+    geom_vline(aes(xintercept = mean(weight)),
+        color = "blue",
+        linetype = "dashed"
+    ) +
+    labs(title = "CV density curve", x = "P-value", y = "Density") +
+    theme_classic()
+# Change line colors by groups
+p <- ggplot(df, aes(x = weight, color = type)) +
+    geom_density() +
+    geom_vline(
+        data = mu, aes(xintercept = grp.mean, color = type),
+        linetype = "dashed"
+    ) +
+    labs(title = "Weight density curve", x = "Coefficient of Variation [%]", y = "Density")
+p + scale_color_manual(values = c("#56B4E9", "#E69F00", "#56B4E9")) +
+    theme_classic()
+# Basic density
+ggplot(df, aes(x = weight, fill = sex)) +
+    geom_density(fill = "gray") +
+    geom_vline(aes(xintercept = mean(weight)),
+        color = "blue",
+        linetype = "dashed"
+    ) +
+    labs(title = "CV density curve", x = "P-value", y = "Density") +
+    theme_classic()
+# Change line colors by groups
+p <- ggplot(df, aes(x = weight, color = sex)) +
+    geom_density() +
+    geom_vline(
+        data = mu, aes(xintercept = grp.mean, color = sex),
+        linetype = "dashed"
+    ) +
+    labs(title = "Weight density curve", x = "Coefficient of Variation [%]", y = "Density")
+p + scale_color_manual(values = c("#56B4E9", "#E69F00", "#56B4E9")) +
+    theme_classic()
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = mean(weight))
+head(mu)
+# Basic density
+ggplot(df, aes(x = weight, fill = sex)) +
+    geom_density(fill = "gray") +
+    geom_vline(aes(xintercept = mean(weight)),
+        color = "blue",
+        linetype = "dashed"
+    ) +
+    labs(title = "CV density curve", x = "P-value", y = "Density") +
+    theme_classic()
+# Change line colors by groups
+p <- ggplot(df, aes(x = weight, color = sex)) +
+    geom_density() +
+    geom_vline(
+        data = mu, aes(xintercept = grp.mean, color = sex),
+        linetype = "dashed"
+    ) +
+    labs(title = "Weight density curve", x = "Coefficient of Variation [%]", y = "Density")
+p + scale_color_manual(values = c("#56B4E9", "#E69F00", "#56B4E9")) +
+    theme_classic()
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = mean(weight))
+head(mu)
+# Basic density
+ggplot(df, aes(x = weight, fill = sex)) +
+    geom_density(fill = "gray") +
+    geom_vline(aes(xintercept = mean(weight)),
+        color = "blue",
+        linetype = "dashed"
+    ) +
+    labs(title = "CV density curve", x = "P-value", y = "Density") +
+    theme_classic()
+# Change line colors by groups
+p <- ggplot(df, aes(x = weight, color = sex)) +
+    geom_density() +
+    geom_vline(
+        data = mu, aes(xintercept = grp.mean, color = sex),
+        linetype = "dashed"
+    ) +
+    labs(title = "Weight density curve", x = "Coefficient of Variation [%]", y = "Density")
+p + scale_color_manual(values = c("#56B4E9", "#E69F00", "#56B4E9")) +
+    theme_classic()
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = mean(weight))
+head(mu)
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = mean(weight))
+head(mu)
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = mean(weight))
+head(mu)
+mu <- ddply(df, "sex", summarise, grp.mean = median(weight))
+head(mu)
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = median(weight))
+head(mu)
+# Basic density
+ggplot(df, aes(x = weight, fill = sex)) +
+    geom_density(fill = "gray") +
+    geom_vline(aes(xintercept = mean(weight)),
+        color = "blue",
+        linetype = "dashed"
+    ) +
+    labs(title = "CV density curve", x = "P-value", y = "Density") +
+    theme_classic()
+# Change line colors by groups
+p <- ggplot(df, aes(x = weight, color = sex)) +
+    geom_density() +
+    geom_vline(
+        data = mu, aes(xintercept = grp.mean, color = sex),
+        linetype = "dashed"
+    ) +
+    labs(title = "Weight density curve", x = "Coefficient of Variation [%]", y = "Density")
+p + scale_color_manual(values = c("#56B4E9", "#E69F00", "#56B4E9")) +
+    theme_classic()
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = median(weight))
+head(mu)
+# Basic density
+ggplot(df, aes(x = weight, fill = sex)) +
+    geom_density(fill = "gray") +
+    geom_vline(aes(xintercept = mean(weight)),
+        color = "blue",
+        linetype = "dashed"
+    ) +
+    labs(title = "CV density curve", x = "P-value", y = "Density") +
+    theme_classic()
+# Change line colors by groups
+p <- ggplot(df, aes(x = weight, color = sex)) +
+    geom_density() +
+    geom_vline(
+        data = mu, aes(xintercept = grp.mean, color = sex),
+        linetype = "dashed"
+    ) +
+    labs(title = "Weight density curve", x = "Coefficient of Variation [%]", y = "Density")
+p + scale_color_manual(values = c("#56B4E9", "#E69F00", "#56B4E9")) +
+    theme_classic()
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = mean(weight))
+head(mu)
+df <- read.csv("/Volumes/T7_Shield/staver/results/DIA_repeat20/processed_data/Density_plot_fig2.csv")
+df$weight <- as.numeric(df$weight)
+mu <- ddply(df, "sex", summarise, grp.mean = median(weight))
+head(mu)

@@ -1,0 +1,26 @@
+{
+    "id": "B42164A1",
+    "path": "/Volumes/Samsung_T5/DIA-QC/DIA/R/PCA.R",
+    "project_path": "PCA.R",
+    "type": "r_source",
+    "hash": "4201852177",
+    "contents": "",
+    "dirty": false,
+    "created": 1670398831939.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "32,55",
+        "scrollLine": "26"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1675912335,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1675912335,
+    "read_only": false,
+    "read_only_alternatives": []
+}

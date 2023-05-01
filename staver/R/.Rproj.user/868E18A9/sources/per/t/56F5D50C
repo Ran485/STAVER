@@ -1,0 +1,27 @@
+{
+    "id": "56F5D50C",
+    "path": "/Volumes/T7_Shield/DIA-QC/DIA/R/Density_plot.R",
+    "project_path": "Density_plot.R",
+    "type": "r_source",
+    "hash": "1453267397",
+    "contents": "",
+    "dirty": false,
+    "created": 1668062341251.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "17,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1682486230,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1682486230823,
+    "read_only": false,
+    "read_only_alternatives": []
+}

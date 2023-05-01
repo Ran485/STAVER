@@ -1,0 +1,26 @@
+{
+    "id": "1F87965A",
+    "path": "/Volumes/Samsung_T5/DIA-QC/DIA/R/Multi_group_DE_analysis(2021-3-7).R",
+    "project_path": "Multi_group_DE_analysis(2021-3-7).R",
+    "type": "r_source",
+    "hash": "613276112",
+    "contents": "",
+    "dirty": false,
+    "created": 1675864414777.0,
+    "source_on_save": false,
+    "relative_order": 10,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "128,65",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1676433629,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1676433629032,
+    "read_only": false,
+    "read_only_alternatives": []
+}
