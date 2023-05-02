@@ -24,13 +24,13 @@
 </div>
 
 ## Table of Contents
-1、[Introduction](#introduction)
-2、[Installation](#installation)
-3、[Getting Started](#getting-started)
-4、[Documentation](#documentation)
-5、[How to Contribute](#how-to-contribute)
-6、[Contact Us](#contact-us)
-7、[License](#license)
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Documentation](#documentation)
+- [How to Contribute](#how-to-contribute)
+- [Contact Us](#contact-us)
+- [License](#license)
 
 
 ## Introduction
