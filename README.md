@@ -71,8 +71,8 @@ Run the `test-data` in the following block
 ```shell
 python  ./staver/staver_pipeline.py \
         --thread_numbers 16 \
-        --input ./staver/data/likai-diann-raw-20/ \
-        --reference_dataset_path ./data/likai-diann-raw \
+        --input ./staver/data/ \
+        --reference_dataset_path ./data/ \
         --output_peptide ./staver/results/peptides/ \
         --output_protein ./staver/results/proteins/ \
         --count_cutoff_same_libs 1 \
