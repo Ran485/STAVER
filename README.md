@@ -1,6 +1,6 @@
 <p align="center">
     <br>
-    <img src="https://github.com/Ran485/STAVER/blob/main/docs/_static/Algorithm_logo.png" width="400"/>
+    <img src="https://github.com/Ran485/STAVER/blob/main/docs/_static/STAVER_logo.svg" width="400"/>
     <br>
     <h2 align="center">
     STAVER: A Standardized Dataset-Based Algorithm for Efficient Variation Reduction
