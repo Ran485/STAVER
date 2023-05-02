@@ -56,7 +56,7 @@ def sigmoid(x):
 
 
 def peptide_scoring(
-    data, weight_variation=1, weight_frequency=1, CV_thresh=2, non_linear=False
+    data, weight_variation=1, weight_frequency=5, CV_thresh=2, non_linear=False
 ):
     """
     Calculate peptide scores.
