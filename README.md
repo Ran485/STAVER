@@ -39,12 +39,28 @@ STAVER is Python library that presents a standardized dataset-based algorithm de
 
 ## Installation
 
-You can install ``staver`` from PyPI by calling ``pip install staver``. You may install from source by
-cloning the STAVER repo, navigating to the root directory, and calling
-``pip install .``, or ``pip install -e .`` to install in editable mode. You may install additional dependencies:
+You can install ``staver`` package from PyPI by calling the following command: 
+
+``` shell
+pip install staver
+```
+You may install from source by cloning the STAVER repo, navigating to the root directory and using one of the following commands ``pip install .``, or ``pip install -e .`` to install in editable mode:
+
+``` shell
+# clone the source repo
+git clone git@github.com:Ran485/STAVER.git
+
+# install the package in editable mode
+pip install .
+
+# or using the following command
+pip install -e .
+```
+You may install additional environmental dependencies:
 
 ``` shell
 pip install -r requirements_dev.txt
+pip install -r requirements.txt
 ```
 
 ## Getting Started
