@@ -48,7 +48,7 @@ You may install from source by cloning the STAVER repo, navigating to the root d
 
 ``` shell
 # clone the source repo
-git clone git@github.com:Ran485/STAVER.git
+git clone https://github.com/Ran485/STAVER.git
 
 # install the package in editable mode
 pip install .
