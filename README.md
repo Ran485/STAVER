@@ -39,10 +39,10 @@ STAVER is Python library that presents a standardized dataset-based algorithm de
 
 ## Installation
 
-You can install ``staver`` package from PyPI by calling the following command: 
+You can install ``staver`` package from [PyPI](https://pypi.org/project/dia-staver/) by calling the following command: 
 
 ``` shell
-pip install staver
+pip install dia-staver
 ```
 You may install from source by cloning the STAVER repo, navigating to the root directory and using one of the following commands ``pip install .``, or ``pip install -e .`` to install in editable mode:
 
@@ -66,8 +66,8 @@ pip install -r requirements.txt
 ## Getting Started
 
 For example code and an introduction to the library, see the Jupyter notebooks in
-[tutorials](https://opensource.salesforce.com/STAVER/latest/tutorials.html), and the guided walkthrough
-[here](https://opensource.salesforce.com/STAVER/latest/index.html). A straightforward command-line demonstration for a quick start can be discovered in the following block.
+[tutorials](https://pypi.org/project/dia-staver/), and the guided walkthrough
+[here](https://pypi.org/project/dia-staver/). A straightforward command-line demonstration for a quick start can be discovered in the following block.
 
 ```shell
 python  ./staver_pipeline.py \
@@ -100,13 +100,13 @@ python  ./staver/staver_pipeline.py \
 ```
 
 ## Documentation
-To gain a comprehensive understanding of STAVER's application and to thoroughly appreciate the function and purpose of each parameter, we highly recommend perusing the all-encompassing STAVER [documentation](https://opensource.salesforce.com/STAVER/latest/index.html). This resource provides detailed, step-by-step instructions, accompanied by illustrative examples and clear explanations, equipping users with the knowledge to skillfully navigate and exploit the software's complete potential.
+To gain a comprehensive understanding of STAVER's application and to thoroughly appreciate the function and purpose of each parameter, we highly recommend perusing the all-encompassing STAVER [documentation](https://pypi.org/project/dia-staver/). This resource provides detailed, step-by-step instructions, accompanied by illustrative examples and clear explanations, equipping users with the knowledge to skillfully navigate and exploit the software's complete potential.
 
 ## How to Contribute
 We welcome the contribution from the open-source community to improve the library!
 
 To add a new explanation method/feature into the library, please follow the template and steps demonstrated in this 
-[documentation](https://opensource.salesforce.com/STAVER/latest/staver.html#how-to-contribute).
+[documentation](https://pypi.org/project/dia-staver/).
 
 ## Contact Us
 If you have any questions, comments or suggestions, please do not hesitate to contact us at 21112030023@m.fudan.edu.cn
