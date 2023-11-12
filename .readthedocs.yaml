@@ -6,8 +6,11 @@ build:
   os: ubuntu-20.04 # <- add this line
   tools:
     python: "3.10"
-      install:
-        - requirements: docs/requirements.txt
+
+# Install dependencies
+python:
+  install:
+    - requirements: docs/requirements.txt
 
 # Configuration for Sphinx documentation
 sphinx:
