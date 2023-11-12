@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to STAVER’s documentation! &mdash; STAVER 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            STAVER
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset.html">Example datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">STAVER</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to STAVER’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-staver-s-documentation">
+<h1>Welcome to STAVER’s documentation!<a class="headerlink" href="#welcome-to-staver-s-documentation" title="Link to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/icon.svg"><img alt="STAVER icon" class="align-right" src="_images/icon.svg" width="240" /></a>
+<p><code class="docutils literal notranslate"><span class="pre">staver</span></code> implements the STAVER (<strong>St</strong>andardized Benchmark Dataset-Based <strong>A</strong>lgorithm for <strong>V</strong>ariation <strong>E</strong>ffective <strong>R</strong>eduction) algorithm, for removing unwanted noise information in large-scale DIA proteome data. <code class="docutils literal notranslate"><span class="pre">STAVER</span></code>, featuring a modular design, provides flexible compatibility with existing DIA-MS data analysis pipelines</p>
+<p>In the context of DIA proteomics, the DIA-MS data is inherently complex and requires a spectral library construction, typically using either DDA data or predictive deep learning-based methods. Building these libraries from complex sample-derived spectra or predictions based on the protein sequence database could introduce unwanted noise, potentially increasing the risk of false discoveries and introducing variability into the DIA proteome searches and quantification. Therefore, a robust algorithm is imperative for discerning and eliminating extraneous noise generated during the library search process, ensuring trustworthy spectrum identification and accurate protein quantification.</p>
+<p>STAVER is a flexible framework that utilizes prior knowledge regarding peptide separation coordinates (retention time [RT]) and fragment ion intensities from the standard benchmark datasets, which effectively mitigates non-biological noise potential during library searches, enhancing spectrum identifications and protein quantification accuracy. Furthermore, the robustness and broad applicability of STAVER in was validated in multiple large-scale DIA datasets from different platforms and laboratories, demonstrating significantly improved precision and reproducibility of protein quantification. It facilitates the comparative and integrative analysis of DIA datasets across different platforms and laboratories, enhancing the consistency and reliability of findings in clinical research.</p>
+<a class="reference internal image-reference" href="_images/architecture.svg"><img alt="STAVER architecture" src="_images/architecture.svg" width="800" /></a>
+<p>To get started with <code class="docutils literal notranslate"><span class="pre">staver</span></code>, check out the <a class="reference internal" href="installation.html"><span class="doc">installation guide</span></a> and <a class="reference internal" href="tutorials.html"><span class="doc">tutorials</span></a>.</p>
+<p>For more details about the STAVER framework, please check out our <a class="reference external" href="https://doi.org/10.21203/rs.3.rs-3111384/v1">Preprint</a>.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#stable-release">Stable release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#from-sources">From sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#environmental-dependencies">Environmental dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#stage-1-data-input-output-i-o">Stage 1: Data Input/Output (I/O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#stage-2-data-preprocessing">Stage 2: Data preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#stage-3-high-confidence-peptide-identification">Stage 3: High-confidence Peptide Identification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#stage-4-protein-quantitative-inference">Stage 4: Protein quantitative inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#staver-pipeline-module">5、STAVER pipeline module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dataset.html">Example datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="staver_pipeline_cli.html">Run the STAVER workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PanCancer_949_celline_analysis.html">The robust generalization performance of the STAVER algorithm across diverse and large-scale DIA datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PanCancer_949_cellline_models.html">The robustness and broad applicability of the STAVER algorithm for disease diagnosis and classification.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#types-of-contributions">Types of Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#get-started">Get Started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#pull-request-guidelines">Pull Request Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#tips">Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#deploying">Deploying</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authors.html#development-lead">Development Lead</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authors.html#contributors">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release.html#id1">0.1.1 (2023-10-25)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release.html#id2">0.1.0 (2023-03-25)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="readme.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Ding Lab, 2023.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

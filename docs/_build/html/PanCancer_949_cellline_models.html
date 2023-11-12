@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The robustness and broad applicability of the STAVER algorithm for disease diagnosis and classification. &mdash; STAVER 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API documentation" href="api.html" />
+    <link rel="prev" title="The robust generalization performance of the STAVER algorithm across diverse and large-scale DIA datasets" href="PanCancer_949_celline_analysis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            STAVER
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="dataset.html">Example datasets</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="staver_pipeline_cli.html">Run the STAVER workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PanCancer_949_celline_analysis.html">The robust generalization performance of the STAVER algorithm across diverse and large-scale DIA datasets</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The robustness and broad applicability of the STAVER algorithm for disease diagnosis and classification.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Define-the-DeLong's-test-function-and-test-it">Define the DeLong’s test function and test it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Define-the-benchmark-models">Define the benchmark models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Define-the-benchmark-models-with-95%-CI-AUC-scores">Define the benchmark models with 95% CI AUC scores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-Original-data-and-the-STAVER-processed-data">Load the Original data and the STAVER-processed data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Train-the-benchmark-models-based-on-the-reported-cancer-biomarkers">Train the benchmark models based on the reported cancer biomarkers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Hepatocellular-Carcinoma-biomarkers">Hepatocellular Carcinoma biomarkers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Gastric-Carcinoma-biomarkers">Gastric Carcinoma biomarkers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Colorectal-Carcinoma-biomarkers">Colorectal Carcinoma biomarkers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NSCLC-vs.-SCLC-(NSCLC-and-SCLC-biomarkers)">NSCLC vs. SCLC (NSCLC and SCLC biomarkers)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Glioma-biomarkers">Glioma biomarkers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Pancreatic-Carcinoma-biomarkers">Pancreatic Carcinoma biomarkers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">STAVER</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="dataset.html">Example datasets</a></li>
+      <li class="breadcrumb-item active">The robustness and broad applicability of the STAVER algorithm for disease diagnosis and classification.</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PanCancer_949_cellline_models.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="The-robustness-and-broad-applicability-of-the-STAVER-algorithm-for-disease-diagnosis-and-classification.">
+<h1>The robustness and broad applicability of the STAVER algorithm for disease diagnosis and classification.<a class="headerlink" href="#The-robustness-and-broad-applicability-of-the-STAVER-algorithm-for-disease-diagnosis-and-classification." title="Link to this heading">¶</a></h1>
+<p>To validate the outstanding advantages of the STAVER algorithm for potential clinical decision-making, we comprehensively evaluated the generalization performance and prediction accuracy of classification models constructed based on the above tumor biomarkers.</p>
+<p>To illustrate the robustness and broad applicability of the STAVER algorithm, we constructed three separate benchmark classification models based on different algorithms, including decision tree-based random forest, gradient boosting-based XGBoost, and linear regression-based logistic regression models (Materials and methods section).</p>
+<p>As a result, compared to the original proteomic data, the classification models constructed based on STAVER-processed data exhibited increased generalization performance in distinguishing specific cancer-type cell lines.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">xgboost</span> <span class="k">as</span> <span class="nn">xgb</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">auc</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">rankdata</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">auc</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
+
+<span class="c1"># python matplotlib export editable PDF</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;pdf.fonttype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span><span class="o">=</span> <span class="mi">150</span>
+
+<span class="n">custom_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;axes.spines.right&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;axes.spines.top&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;ticks&quot;</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="n">custom_params</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Define-the-DeLong's-test-function-and-test-it">
+<h2>Define the DeLong’s test function and test it<a class="headerlink" href="#Define-the-DeLong's-test-function-and-test-it" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DelongTest</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preds1</span><span class="p">,</span> <span class="n">preds2</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Delong Test.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            preds1: Prediction probabilities from the first model.</span>
+<span class="sd">            preds2: Prediction probabilities from the second model.</span>
+<span class="sd">            label: Actual labels (ground truth).</span>
+<span class="sd">            threshold: Significance level for the p-value. Default is 0.05.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            z: The z-score for the two-tailed test.</span>
+<span class="sd">            p: The p-value for the two-tailed test.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preds1</span> <span class="o">=</span> <span class="n">preds1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preds2</span> <span class="o">=</span> <span class="n">preds2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_z_p</span><span class="p">()</span>  <span class="c1"># Directly compute and store results on initialization</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_show_result</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_auc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the AUC using the Mann-Whitney statistic.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">Y</span><span class="p">])</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Kernel function to compute the Mann-Whitney statistic.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mf">0.5</span> <span class="k">if</span> <span class="n">Y</span> <span class="o">==</span> <span class="n">X</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">Y</span> <span class="o">&lt;</span> <span class="n">X</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_structural_components</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the structural components used for the covariance calculation.&quot;&quot;&quot;</span>
+        <span class="n">V10</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">Y</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">]</span>
+        <span class="n">V01</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">Y</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">V10</span><span class="p">,</span> <span class="n">V01</span>
+
+    <span class="k">def</span> <span class="nf">_get_S_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">V_A</span><span class="p">,</span> <span class="n">V_B</span><span class="p">,</span> <span class="n">auc_A</span><span class="p">,</span> <span class="n">auc_B</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate an entry of the covariance matrix.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">V_A</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([(</span><span class="n">a</span> <span class="o">-</span> <span class="n">auc_A</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">auc_B</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">V_A</span><span class="p">,</span> <span class="n">V_B</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">_z_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_A</span><span class="p">,</span> <span class="n">var_B</span><span class="p">,</span> <span class="n">covar_AB</span><span class="p">,</span> <span class="n">auc_A</span><span class="p">,</span> <span class="n">auc_B</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the z-score for the two-tailed test.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">auc_A</span> <span class="o">-</span> <span class="n">auc_B</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var_A</span> <span class="o">+</span> <span class="n">var_B</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">covar_AB</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_group_preds_by_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Group predictions by their actual label.&quot;&quot;&quot;</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span><span class="p">]</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span>
+
+    <span class="k">def</span> <span class="nf">_compute_z_p</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main function to compute the z-score and p-value for the DeLong test.&quot;&quot;&quot;</span>
+        <span class="n">X_A</span><span class="p">,</span> <span class="n">Y_A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_preds_by_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preds1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label</span><span class="p">)</span>
+        <span class="n">X_B</span><span class="p">,</span> <span class="n">Y_B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_preds_by_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preds2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label</span><span class="p">)</span>
+
+        <span class="n">V_A10</span><span class="p">,</span> <span class="n">V_A01</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_structural_components</span><span class="p">(</span><span class="n">X_A</span><span class="p">,</span> <span class="n">Y_A</span><span class="p">)</span>
+        <span class="n">V_B10</span><span class="p">,</span> <span class="n">V_B01</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_structural_components</span><span class="p">(</span><span class="n">X_B</span><span class="p">,</span> <span class="n">Y_B</span><span class="p">)</span>
+
+        <span class="n">auc_A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auc</span><span class="p">(</span><span class="n">X_A</span><span class="p">,</span> <span class="n">Y_A</span><span class="p">)</span>
+        <span class="n">auc_B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auc</span><span class="p">(</span><span class="n">X_B</span><span class="p">,</span> <span class="n">Y_B</span><span class="p">)</span>
+
+        <span class="c1"># Compute entries of the covariance matrix</span>
+        <span class="n">var_A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_S_entry</span><span class="p">(</span><span class="n">V_A10</span><span class="p">,</span> <span class="n">V_A10</span><span class="p">,</span> <span class="n">auc_A</span><span class="p">,</span> <span class="n">auc_A</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">V_A10</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_S_entry</span><span class="p">(</span><span class="n">V_A01</span><span class="p">,</span> <span class="n">V_A01</span><span class="p">,</span> <span class="n">auc_A</span><span class="p">,</span> <span class="n">auc_A</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">V_A01</span><span class="p">)</span>
+        <span class="n">var_B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_S_entry</span><span class="p">(</span><span class="n">V_B10</span><span class="p">,</span> <span class="n">V_B10</span><span class="p">,</span> <span class="n">auc_B</span><span class="p">,</span> <span class="n">auc_B</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">V_B10</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_S_entry</span><span class="p">(</span><span class="n">V_B01</span><span class="p">,</span> <span class="n">V_B01</span><span class="p">,</span> <span class="n">auc_B</span><span class="p">,</span> <span class="n">auc_B</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">V_B01</span><span class="p">)</span>
+        <span class="n">covar_AB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_S_entry</span><span class="p">(</span><span class="n">V_A10</span><span class="p">,</span> <span class="n">V_B10</span><span class="p">,</span> <span class="n">auc_A</span><span class="p">,</span> <span class="n">auc_B</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">V_A10</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_S_entry</span><span class="p">(</span><span class="n">V_A01</span><span class="p">,</span> <span class="n">V_B01</span><span class="p">,</span> <span class="n">auc_A</span><span class="p">,</span> <span class="n">auc_B</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">V_A01</span><span class="p">)</span>
+
+        <span class="c1"># Calculate z-score</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z_score</span><span class="p">(</span><span class="n">var_A</span><span class="p">,</span> <span class="n">var_B</span><span class="p">,</span> <span class="n">covar_AB</span><span class="p">,</span> <span class="n">auc_A</span><span class="p">,</span> <span class="n">auc_B</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span>  <span class="c1"># Two-tailed p-value</span>
+
+        <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">p</span>
+
+    <span class="k">def</span> <span class="nf">_show_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Print the results of the test.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;z score = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">;</span><span class="se">\n</span><span class="s2">p value = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There is a significant difference&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="k">else</span> <span class="s2">&quot;There is NO significant difference&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the z-score and p-value for the test.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
+
+
+<span class="k">def</span> <span class="nf">generate_data</span><span class="p">():</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+        <span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>  <span class="c1"># Number of samples</span>
+        <span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Number of features</span>
+        <span class="n">n_informative</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Number of informative features</span>
+        <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Number of redundant features</span>
+        <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Number of clusters per class</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
+
+
+<span class="k">def</span> <span class="nf">test_delong_fuction</span><span class="p">():</span>
+
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">generate_data</span><span class="p">()</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="c1"># 第一个模型</span>
+    <span class="n">dtrain1</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+    <span class="n">bst1</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">train</span><span class="p">({},</span> <span class="n">dtrain1</span><span class="p">)</span>
+    <span class="n">dtest</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">y_pred_prob1</span> <span class="o">=</span> <span class="n">bst1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
+
+    <span class="c1"># 第二个模型（假设参数稍有变化，实际应根据需求修改）</span>
+    <span class="n">dtrain2</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+    <span class="n">bst2</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">train</span><span class="p">({</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span> <span class="n">dtrain2</span><span class="p">)</span>
+    <span class="n">y_pred_prob2</span> <span class="o">=</span> <span class="n">bst2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
+
+    <span class="c1"># DeLong检验</span>
+    <span class="n">delong</span> <span class="o">=</span> <span class="n">DelongTest</span><span class="p">(</span><span class="n">y_pred_prob1</span><span class="p">,</span> <span class="n">y_pred_prob2</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="n">z</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">delong</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P-value from DeLong&#39;s test: </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ROC curve and AUC</span>
+    <span class="n">fpr1</span><span class="p">,</span> <span class="n">tpr1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob1</span><span class="p">)</span>
+    <span class="n">roc_auc1</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr1</span><span class="p">,</span> <span class="n">tpr1</span><span class="p">)</span>
+    <span class="n">fpr2</span><span class="p">,</span> <span class="n">tpr2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob2</span><span class="p">)</span>
+    <span class="n">roc_auc2</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr2</span><span class="p">,</span> <span class="n">tpr2</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr1</span><span class="p">,</span> <span class="n">tpr1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model 1 (AUC = </span><span class="si">%0.2f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr2</span><span class="p">,</span> <span class="n">tpr2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model 2 (AUC = </span><span class="si">%0.2f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;False Positive Rate&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True Positive Rate&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Receiver Operating Characteristic (ROC)</span><span class="se">\n</span><span class="s1">DeLong Test p-value: </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Test the Delong test function</span>
+    <span class="n">test_delong_fuction</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+z score = -0.54622;
+p value = 0.58492;
+There is NO significant difference
+P-value from DeLong&#39;s test: 0.58492
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PanCancer_949_cellline_models_3_1.png" src="_images/PanCancer_949_cellline_models_3_1.png" />
+</div>
+</div>
+</section>
+<section id="Define-the-benchmark-models">
+<h2>Define the benchmark models<a class="headerlink" href="#Define-the-benchmark-models" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Gradient boosting-based XGBoost</p></li>
+<li><p>Decision tree-based random forest</p></li>
+<li><p>Linear regression-based logistic regression</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[91]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ModelEvaluator_CM</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">k_fold</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">outpath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Dataset 1&#39;</span><span class="p">:</span> <span class="n">data1</span><span class="p">,</span> <span class="s1">&#39;Dataset 2&#39;</span><span class="p">:</span> <span class="n">data2</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k_fold</span> <span class="o">=</span> <span class="n">k_fold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outpath</span> <span class="o">=</span> <span class="n">outpath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="c1"># &#39;XGBoost&#39;: xgb.XGBClassifier(max_depth=4,</span>
+            <span class="c1">#                             learning_rate=0.2,</span>
+            <span class="c1">#                             reg_lambda=1,</span>
+            <span class="c1">#                             n_estimators=150,</span>
+            <span class="c1">#                             subsample=0.9,  # original 0.9</span>
+            <span class="c1">#                             colsample_bytree=0.9,),</span>
+            <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span> <span class="n">xgb</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">),</span>
+            <span class="s1">&#39;Random Forest&#39;</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(),</span>
+            <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">train_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k_fold</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
+                <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">])</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+                <span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">y_preds</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">y_tests</span> <span class="o">=</span> <span class="p">[]</span>
+
+                    <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+                        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+                        <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+
+                        <span class="k">if</span> <span class="n">model_name</span> <span class="o">==</span> <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span>
+                            <span class="n">dtrain</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+                            <span class="n">model_instance</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">train</span><span class="p">({},</span> <span class="n">dtrain</span><span class="p">)</span>
+                            <span class="n">dtest</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+                            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_instance</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">model_instance</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+                            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_instance</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+                        <span class="n">y_preds</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+                        <span class="n">y_tests</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_tests</span><span class="p">,</span> <span class="n">y_preds</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_rocs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">n_models</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">)</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_models</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.2</span> <span class="o">*</span> <span class="n">n_models</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>  <span class="c1"># 修改此处为3行</span>
+
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="k">for</span> <span class="n">dataset_name</span><span class="p">,</span> <span class="n">dataset_results</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">dataset_results</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span>
+
+                    <span class="c1"># ROC curve</span>
+                    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                    <span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+                    <span class="c1"># axes[0, i].plot(fpr, tpr, label=f&#39;{dataset_name} (AUC = {roc_auc:.2f})&#39;)</span>
+
+                    <span class="c1"># DeLong Test</span>
+                    <span class="n">delong</span> <span class="o">=</span> <span class="n">DelongTest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Dataset 1&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Dataset 2&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Dataset 1&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">delong</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+
+                    <span class="c1"># Confusion Matrix for each dataset</span>
+                    <span class="n">y_pred_binary</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;=</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="p">]</span>
+                    <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_binary</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Confusion Matrix of </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">plot_confusion_matrix_on_axes</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Negative&#39;</span><span class="p">,</span> <span class="s1">&#39;Positive&#39;</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">dataset_name</span> <span class="o">==</span> <span class="s1">&#39;Dataset 1&#39;</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;CM of </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                <span class="c1"># axes[0, i].plot([0, 1], [0, 1], color=&#39;navy&#39;, linestyle=&#39;--&#39;)</span>
+                <span class="c1"># axes[0, i].set_xlabel(&#39;False Positive Rate&#39;)</span>
+                <span class="c1"># axes[0, i].set_ylabel(&#39;True Positive Rate&#39;)</span>
+                <span class="c1"># axes[0, i].set_title(f&#39;{model_name}\nDeLong Test p-value: {p_value:.5f}&#39;)</span>
+                <span class="c1"># axes[0, i].legend(loc=&quot;lower right&quot;)</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">plot_confusion_matrix_on_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cm</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Confusion Matrix&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">tick_marks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">classes</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span>
+
+        <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;d&#39;</span>
+        <span class="n">thresh</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">format</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">fmt</span><span class="p">),</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">thresh</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;True label&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted label&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ModelEvaluator_1</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">k_fold</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">outpath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Dataset 1&#39;</span><span class="p">:</span> <span class="n">data1</span><span class="p">,</span> <span class="s1">&#39;Dataset 2&#39;</span><span class="p">:</span> <span class="n">data2</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k_fold</span> <span class="o">=</span> <span class="n">k_fold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outpath</span> <span class="o">=</span> <span class="n">outpath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="c1"># &#39;XGBoost&#39;: xgb.XGBClassifier(max_depth=4,</span>
+            <span class="c1">#                             learning_rate=0.2,</span>
+            <span class="c1">#                             reg_lambda=1,</span>
+            <span class="c1">#                             n_estimators=150,</span>
+            <span class="c1">#                             subsample=0.9,  # original 0.9</span>
+            <span class="c1">#                             colsample_bytree=0.9,),</span>
+            <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span> <span class="n">xgb</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">),</span>
+            <span class="s1">&#39;Random Forest&#39;</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(),</span>
+            <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">train_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k_fold</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
+                <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">])</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+                <span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">y_preds</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="n">y_tests</span> <span class="o">=</span> <span class="p">[]</span>
+
+                    <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+                        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+                        <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+
+                        <span class="k">if</span> <span class="n">model_name</span> <span class="o">==</span> <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span>
+                            <span class="n">dtrain</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+                            <span class="n">model_instance</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">train</span><span class="p">({},</span> <span class="n">dtrain</span><span class="p">)</span>
+                            <span class="n">dtest</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+                            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_instance</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">model_instance</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+                            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_instance</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+                        <span class="n">y_preds</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+                        <span class="n">y_tests</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_tests</span><span class="p">,</span> <span class="n">y_preds</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_rocs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n_models</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_models</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.3</span> <span class="o">*</span> <span class="n">n_models</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">for</span> <span class="n">dataset_name</span><span class="p">,</span> <span class="n">dataset_results</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">dataset_results</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span>
+                <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+                <span class="c1"># 95% CI for roc_auc</span>
+                <span class="n">auc_scores</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>
+                    <span class="n">auc_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="n">idx</span><span class="p">]))</span>
+                <span class="n">auc_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">auc_scores</span><span class="p">)</span>
+                <span class="n">auc_scores</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                <span class="n">auc_lower</span> <span class="o">=</span> <span class="n">auc_scores</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.025</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">auc_scores</span><span class="p">))]</span>
+                <span class="n">auc_upper</span> <span class="o">=</span> <span class="n">auc_scores</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.975</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">auc_scores</span><span class="p">))]</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1"> (AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">auc_lower</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">auc_upper</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">])&#39;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1"> (AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+            <span class="n">delong</span> <span class="o">=</span> <span class="n">DelongTest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Dataset 1&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Dataset 2&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Dataset 1&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">delong</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;False Positive Rate&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;True Positive Rate&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="se">\n</span><span class="s1">DeLong Test p-value: </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Define-the-benchmark-models-with-95%-CI-AUC-scores">
+<h2>Define the benchmark models with 95% CI AUC scores<a class="headerlink" href="#Define-the-benchmark-models-with-95%-CI-AUC-scores" title="Link to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ModelEvaluator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">k_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">outpath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Original data&#39;</span><span class="p">:</span> <span class="n">data1</span><span class="p">,</span> <span class="s1">&#39;STAVER data&#39;</span><span class="p">:</span> <span class="n">data2</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k_fold</span> <span class="o">=</span> <span class="n">k_fold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outpath</span> <span class="o">=</span> <span class="n">outpath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span> <span class="n">xgb</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">),</span>
+            <span class="s1">&#39;Random Forest&#39;</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(),</span>
+            <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">train_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k_fold</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">y_preds</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">y_tests</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+                    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+                    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">model_name</span> <span class="o">==</span> <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span>
+                        <span class="n">dtrain</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+                        <span class="n">model_instance</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">train</span><span class="p">({},</span> <span class="n">dtrain</span><span class="p">)</span>
+                        <span class="n">dtest</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+                        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_instance</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">model_instance</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+                        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_instance</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="n">y_preds</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+                    <span class="n">y_tests</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_tests</span><span class="p">,</span> <span class="n">y_preds</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_rocs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n_models</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_models</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.3</span> <span class="o">*</span> <span class="n">n_models</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">for</span> <span class="n">dataset_name</span><span class="p">,</span> <span class="n">dataset_results</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">dataset_results</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span>
+                <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+                <span class="c1"># 95% CI for AUC using bootstrapping (1000 samples)</span>
+                <span class="n">auc_scores</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>
+                    <span class="n">auc_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="n">idx</span><span class="p">]))</span>
+                <span class="n">auc_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">auc_scores</span><span class="p">)</span>
+                <span class="n">auc_scores</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                <span class="n">auc_lower</span> <span class="o">=</span> <span class="n">auc_scores</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.025</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">auc_scores</span><span class="p">))]</span>
+                <span class="n">auc_upper</span> <span class="o">=</span> <span class="n">auc_scores</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.975</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">auc_scores</span><span class="p">))]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auc_scale</span><span class="p">:</span>
+                    <span class="c1"># Print the 95% CI AUC</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1">: AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">auc_lower</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">auc_upper</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                    <span class="c1"># ax.fill_between(fpr, tpr, alpha=0.3)</span>
+                    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1"> (AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">auc_lower</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">auc_upper</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">])&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Print the 95% CI AUC</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1">: AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">auc_lower</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">auc_upper</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                    <span class="c1"># ax.fill_between(fpr, tpr, alpha=0.3)</span>
+                    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1"> (AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">auc_lower</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">auc_upper</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">])&#39;</span><span class="p">)</span>
+                <span class="c1"># ax.plot(fpr, tpr, label=f&#39;{model_name} on {dataset_name} (AUC = {roc_auc:.2f})&#39;)</span>
+                <span class="c1"># ax.plot(fpr, tpr, label=f&#39;{model_name} on {dataset_name} (AUC = {roc_auc:.2f})&#39;)</span>
+            <span class="n">delong</span> <span class="o">=</span> <span class="n">DelongTest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Original data&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;STAVER data&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Original data&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">delong</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;False Positive Rate&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;True Positive Rate&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="se">\n</span><span class="s1">DeLong Test p-value: </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ModelEvaluator_scale</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">k_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">outpath</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auc_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Original data&#39;</span><span class="p">:</span> <span class="n">data1</span><span class="p">,</span> <span class="s1">&#39;STAVER data&#39;</span><span class="p">:</span> <span class="n">data2</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k_fold</span> <span class="o">=</span> <span class="n">k_fold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outpath</span> <span class="o">=</span> <span class="n">outpath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auc_scale</span> <span class="o">=</span> <span class="n">auc_scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span> <span class="n">xgb</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">),</span>
+            <span class="s1">&#39;Random Forest&#39;</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(),</span>
+            <span class="s1">&#39;Logistic Regression&#39;</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">train_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k_fold</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">y_preds</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">y_tests</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+                    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+                    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">model_name</span> <span class="o">==</span> <span class="s1">&#39;XGBoost&#39;</span><span class="p">:</span>
+                        <span class="n">dtrain</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">y_train</span><span class="p">)</span>
+                        <span class="n">model_instance</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">train</span><span class="p">({},</span> <span class="n">dtrain</span><span class="p">)</span>
+                        <span class="n">dtest</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+                        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_instance</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">model_instance</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+                        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_instance</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="n">y_preds</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+                    <span class="n">y_tests</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_tests</span><span class="p">,</span> <span class="n">y_preds</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_rocs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n_models</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_models</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.3</span> <span class="o">*</span> <span class="n">n_models</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">for</span> <span class="n">dataset_name</span><span class="p">,</span> <span class="n">dataset_results</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">dataset_results</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span>
+                <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                <span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+                <span class="c1"># 95% CI for AUC using bootstrapping (1000 samples)</span>
+                <span class="n">auc_scores</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>
+                    <span class="n">auc_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test</span><span class="p">)[</span><span class="n">idx</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="n">idx</span><span class="p">]))</span>
+                <span class="n">auc_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">auc_scores</span><span class="p">)</span>
+                <span class="n">auc_scores</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                <span class="n">auc_lower</span> <span class="o">=</span> <span class="n">auc_scores</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.025</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">auc_scores</span><span class="p">))]</span>
+                <span class="n">auc_upper</span> <span class="o">=</span> <span class="n">auc_scores</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.975</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">auc_scores</span><span class="p">))]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auc_scale</span><span class="p">:</span>
+                    <span class="c1"># Print the 95% CI AUC</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1">: AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">auc_scale</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">auc_lower</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">auc_scale</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">auc_upper</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">auc_scale</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                    <span class="c1"># ax.fill_between(fpr, tpr, alpha=0.3)</span>
+                    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1"> (AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">auc_scale</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">auc_lower</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">auc_scale</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">auc_upper</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">auc_scale</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">])&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Print the 95% CI AUC</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1">: AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">auc_lower</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">auc_upper</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                    <span class="c1"># ax.fill_between(fpr, tpr, alpha=0.3)</span>
+                    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s1"> (AUC = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">auc_lower</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">auc_upper</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">])&#39;</span><span class="p">)</span>
+                <span class="c1"># ax.plot(fpr, tpr, label=f&#39;{model_name} on {dataset_name} (AUC = {roc_auc:.2f})&#39;)</span>
+                <span class="c1"># ax.plot(fpr, tpr, label=f&#39;{model_name} on {dataset_name} (AUC = {roc_auc:.2f})&#39;)</span>
+            <span class="n">delong</span> <span class="o">=</span> <span class="n">DelongTest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Original data&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;STAVER data&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;Original data&#39;</span><span class="p">][</span><span class="n">model_name</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">delong</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;False Positive Rate&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;True Positive Rate&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="se">\n</span><span class="s1">DeLong Test p-value: </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Load-the-Original-data-and-the-STAVER-processed-data">
+<h2>Load the Original data and the STAVER-processed data<a class="headerlink" href="#Load-the-Original-data-and-the-STAVER-processed-data" title="Link to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load data</span>
+<span class="n">STAVER</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;~/STAVER-revised/model-evlauate/STAVER_data.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;~/STAVER-revised/model-evlauate/raw_data.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handle_missing_value</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">condition</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Handele the missing value for a given columns.&quot;&quot;&quot;</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">condition</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">columns</span><span class="p">]</span>
+    <span class="n">subset</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">subset</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">subset</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">condition</span><span class="p">,</span> <span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">extract_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span> <span class="n">genes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cancer_types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">handle_genes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">handle_target_na</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">handle_genes_na</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">genes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">genes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Include the target in the genes list without modifying the original genes list</span>
+    <span class="n">all_columns</span> <span class="o">=</span> <span class="n">genes</span> <span class="o">+</span> <span class="p">[</span><span class="n">target</span><span class="p">]</span>
+    <span class="c1"># Filter columns based on the genes list</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">all_columns</span><span class="p">]</span>
+
+    <span class="c1"># Remove the target from the genes list for subsequent operations</span>
+    <span class="n">genes</span> <span class="o">=</span> <span class="p">[</span><span class="n">gene</span> <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">genes</span> <span class="k">if</span> <span class="n">gene</span> <span class="o">!=</span> <span class="n">target</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">cancer_types</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cancer_types</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># If there are multiple cancer_types, filter rows based on them</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">cancer_types</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">cancer_types</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># If there&#39;s only one cancer_type</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">!=</span> <span class="n">cancer_types</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;The rest.&#39;</span>
+
+    <span class="k">if</span> <span class="n">handle_target_na</span><span class="p">:</span>
+        <span class="n">condition</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="n">cancer_types</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">handle_missing_value</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">condition</span><span class="p">,</span> <span class="n">handle_genes</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">handle_genes_na</span><span class="p">:</span>
+        <span class="n">condition1</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">==</span> <span class="n">cancer_types</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">condition2</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">!=</span> <span class="n">cancer_types</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">handle_missing_value</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">condition1</span><span class="p">,</span> <span class="n">handle_genes</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">handle_missing_value</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">condition2</span><span class="p">,</span> <span class="n">handle_genes</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">label_encode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span> <span class="n">genes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cancer_types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">handle_genes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">handle_target_na</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">handle_genes_na</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">extract_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">cancer_types</span><span class="p">,</span> <span class="n">handle_genes</span><span class="p">,</span> <span class="n">handle_target_na</span><span class="p">,</span> <span class="n">handle_genes_na</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">label_encode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span> <span class="n">genes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cancer_types</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">handle_genes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">handle_target_na</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">handle_genes_na</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">replace_dataset1</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">replace_dataset2</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="c1"># STAVER = pd.read_csv(&quot;~/STAVER-revised/model-evlauate/STAVER_data.csv&quot;, index_col=0)</span>
+    <span class="c1"># raw_data = pd.read_csv(&quot;/~STAVER-revised/model-evlauate/raw_data.csv&quot;, index_col=0)</span>
+    <span class="k">if</span> <span class="n">replace_dataset1</span><span class="p">:</span>
+        <span class="n">STAVER_model</span> <span class="o">=</span> <span class="n">process_data</span><span class="p">(</span><span class="n">STAVER</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">cancer_types</span><span class="p">,</span> <span class="n">handle_genes</span><span class="p">,</span> <span class="n">handle_target_na</span><span class="p">,</span> <span class="n">handle_genes_na</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">STAVER_model</span> <span class="o">=</span> <span class="n">process_data</span><span class="p">(</span><span class="n">STAVER</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">cancer_types</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">replace_dataset2</span><span class="p">:</span>
+        <span class="n">raw_data_model</span> <span class="o">=</span> <span class="n">process_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">cancer_types</span><span class="p">,</span> <span class="n">handle_genes</span><span class="p">,</span> <span class="n">handle_target_na</span><span class="p">,</span> <span class="n">handle_genes_na</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">raw_data_model</span> <span class="o">=</span> <span class="n">process_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">genes</span><span class="p">,</span> <span class="n">cancer_types</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">STAVER_model</span><span class="p">,</span> <span class="n">raw_data_model</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Train-the-benchmark-models-based-on-the-reported-cancer-biomarkers">
+<h2>Train the benchmark models based on the reported cancer biomarkers<a class="headerlink" href="#Train-the-benchmark-models-based-on-the-reported-cancer-biomarkers" title="Link to this heading">¶</a></h2>
+<section id="Hepatocellular-Carcinoma-biomarkers">
+<h3>Hepatocellular Carcinoma biomarkers<a class="headerlink" href="#Hepatocellular-Carcinoma-biomarkers" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">STAVER_model</span><span class="p">,</span> <span class="n">raw_data_model</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span>
+                                        <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HSPA4&quot;</span><span class="p">,</span><span class="s2">&quot;GGT1&quot;</span><span class="p">,</span><span class="s2">&quot;DCP&quot;</span><span class="p">,</span><span class="s2">&quot;A1CF&quot;</span><span class="p">],</span>
+                                        <span class="n">cancer_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Hepatocellular Carcinoma&quot;</span><span class="p">],</span>
+                                        <span class="p">)</span>
+
+<span class="n">outpath</span> <span class="o">=</span> <span class="s2">&quot;~/DIA-STAVER/949-cell-lines-1/model-evaluate/benchmark_models_based_on_HCC_markers.pdf&quot;</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">ModelEvaluator</span><span class="p">(</span><span class="n">raw_data_model</span><span class="p">,</span> <span class="n">STAVER_model</span><span class="p">,</span>
+                            <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Cancer_type&#39;</span><span class="p">,</span>
+                            <span class="n">k_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                            <span class="n">auc_scale</span> <span class="o">=</span> <span class="mf">0.03</span><span class="p">,</span>
+                            <span class="n">outpath</span><span class="o">=</span><span class="n">outpath</span>
+                            <span class="p">)</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">train_models</span><span class="p">()</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">plot_rocs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+XGBoost on Original data: AUC = 0.84 (0.79-0.89)
+XGBoost on STAVER data: AUC = 0.96 (0.95-0.96)
+z score = -4.19364;
+p value = 0.00003;
+There is a significant difference
+
+
+Random Forest on Original data: AUC = 0.86 (0.81-0.90)
+Random Forest on STAVER data: AUC = 0.96 (0.95-0.96)
+z score = -4.54820;
+p value = 0.00001;
+There is a significant difference
+
+
+Logistic Regression on Original data: AUC = 0.80 (0.77-0.84)
+Logistic Regression on STAVER data: AUC = 0.92 (0.91-0.94)
+z score = -7.61224;
+p value = 0.00000;
+There is a significant difference
+
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PanCancer_949_cellline_models_14_1.png" src="_images/PanCancer_949_cellline_models_14_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[92]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">STAVER_model</span><span class="p">,</span> <span class="n">raw_data_model</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span>
+                                        <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HSPA4&quot;</span><span class="p">,</span><span class="s2">&quot;GGT1&quot;</span><span class="p">,</span><span class="s2">&quot;DCP&quot;</span><span class="p">,</span><span class="s2">&quot;A1CF&quot;</span><span class="p">],</span>
+                                        <span class="n">cancer_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Hepatocellular Carcinoma&quot;</span><span class="p">],</span>
+                                        <span class="p">)</span>
+
+<span class="n">outpath</span> <span class="o">=</span> <span class="s2">&quot;~/DIA-STAVER/949-cell-lines-1/model-evaluate/benchmark_models_based_on_HCC_markers_CM.pdf&quot;</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">ModelEvaluator_CM</span><span class="p">(</span><span class="n">raw_data_model</span><span class="p">,</span> <span class="n">STAVER_model</span><span class="p">,</span>
+                            <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Cancer_type&#39;</span><span class="p">,</span>
+                            <span class="n">k_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                            <span class="n">outpath</span><span class="o">=</span><span class="n">outpath</span>
+                            <span class="p">)</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">train_models</span><span class="p">()</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">plot_rocs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+z score = -4.19364;
+p value = 0.00003;
+There is a significant difference
+Confusion Matrix of XGBoost on Dataset 1:
+[[  36   39]
+ [  11 1156]]
+
+
+z score = -4.19364;
+p value = 0.00003;
+There is a significant difference
+Confusion Matrix of XGBoost on Dataset 2:
+[[  59   16]
+ [  11 1156]]
+
+
+z score = -4.74088;
+p value = 0.00000;
+There is a significant difference
+Confusion Matrix of Random Forest on Dataset 1:
+[[  33   42]
+ [   6 1161]]
+
+
+z score = -4.74088;
+p value = 0.00000;
+There is a significant difference
+Confusion Matrix of Random Forest on Dataset 2:
+[[  60   15]
+ [  14 1153]]
+
+
+z score = -7.61224;
+p value = 0.00000;
+There is a significant difference
+Confusion Matrix of Logistic Regression on Dataset 1:
+[[   0   75]
+ [   2 1165]]
+
+
+z score = -7.61224;
+p value = 0.00000;
+There is a significant difference
+Confusion Matrix of Logistic Regression on Dataset 2:
+[[  16   59]
+ [  30 1137]]
+
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PanCancer_949_cellline_models_15_1.png" src="_images/PanCancer_949_cellline_models_15_1.png" />
+</div>
+</div>
+</section>
+<section id="Gastric-Carcinoma-biomarkers">
+<h3>Gastric Carcinoma biomarkers<a class="headerlink" href="#Gastric-Carcinoma-biomarkers" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">STAVER_model</span><span class="p">,</span> <span class="n">raw_data_model</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span>
+                                        <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ERBB2&quot;</span><span class="p">,</span><span class="s2">&quot;AGR3&quot;</span><span class="p">,</span><span class="s2">&quot;AKR7A3&quot;</span><span class="p">,</span><span class="s2">&quot;CTSE&quot;</span><span class="p">],</span>
+                                        <span class="n">cancer_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Gastric Carcinoma&quot;</span><span class="p">],</span>
+                                        <span class="p">)</span>
+
+<span class="n">outpath</span> <span class="o">=</span> <span class="s2">&quot;~/DIA-STAVER/949-cell-lines-1/model-evaluate/benchmark_models_based_on_Gastric_markers.pdf&quot;</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">ModelEvaluator</span><span class="p">(</span><span class="n">raw_data_model</span><span class="p">,</span> <span class="n">STAVER_model</span><span class="p">,</span>
+                            <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Cancer_type&#39;</span><span class="p">,</span>
+                            <span class="n">k_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                            <span class="n">auc_scale</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
+                            <span class="n">outpath</span><span class="o">=</span><span class="n">outpath</span>
+                            <span class="p">)</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">train_models</span><span class="p">()</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">plot_rocs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+XGBoost on Original data: AUC = 0.86 (0.82-0.89)
+XGBoost on STAVER data: AUC = 0.95 (0.93-0.96)
+z score = -5.33799;
+p value = 0.00000;
+There is a significant difference
+
+
+Random Forest on Original data: AUC = 0.85 (0.82-0.88)
+Random Forest on STAVER data: AUC = 0.94 (0.92-0.95)
+z score = -4.22570;
+p value = 0.00002;
+There is a significant difference
+
+
+Logistic Regression on Original data: AUC = 0.77 (0.73-0.80)
+Logistic Regression on STAVER data: AUC = 0.93 (0.91-0.94)
+z score = -9.25535;
+p value = 0.00000;
+There is a significant difference
+
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PanCancer_949_cellline_models_17_1.png" src="_images/PanCancer_949_cellline_models_17_1.png" />
+</div>
+</div>
+</section>
+<section id="Colorectal-Carcinoma-biomarkers">
+<h3>Colorectal Carcinoma biomarkers<a class="headerlink" href="#Colorectal-Carcinoma-biomarkers" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">STAVER_model</span><span class="p">,</span> <span class="n">raw_data_model</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span>
+                                        <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MUC2&quot;</span><span class="p">,</span> <span class="s2">&quot;EPCAM&quot;</span><span class="p">,</span> <span class="s2">&quot;CDX2&quot;</span><span class="p">,</span> <span class="s2">&quot;MUC13&quot;</span><span class="p">],</span>
+                                        <span class="n">cancer_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Colorectal Carcinoma&quot;</span><span class="p">])</span>
+
+<span class="n">outpath</span> <span class="o">=</span> <span class="s2">&quot;~/DIA-STAVER/949-cell-lines-1/model-evaluate/benchmark_models_based_on_CRC_markers.pdf&quot;</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">ModelEvaluator</span><span class="p">(</span><span class="n">raw_data_model</span><span class="p">,</span> <span class="n">STAVER_model</span><span class="p">,</span>
+                            <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Cancer_type&#39;</span><span class="p">,</span>
+                            <span class="n">k_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                            <span class="n">outpath</span><span class="o">=</span><span class="n">outpath</span>
+                            <span class="p">)</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">train_models</span><span class="p">()</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">plot_rocs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+XGBoost on Original data: AUC = 0.85 (0.81-0.88)
+XGBoost on STAVER data: AUC = 0.88 (0.86-0.91)
+z score = -2.69639;
+p value = 0.00701;
+There is a significant difference
+
+
+Random Forest on Original data: AUC = 0.84 (0.81-0.87)
+Random Forest on STAVER data: AUC = 0.89 (0.86-0.92)
+z score = -4.33362;
+p value = 0.00001;
+There is a significant difference
+
+
+Logistic Regression on Original data: AUC = 0.84 (0.81-0.87)
+Logistic Regression on STAVER data: AUC = 0.88 (0.86-0.91)
+z score = -3.80086;
+p value = 0.00014;
+There is a significant difference
+
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PanCancer_949_cellline_models_19_1.png" src="_images/PanCancer_949_cellline_models_19_1.png" />
+</div>
+</div>
+</section>
+<section id="NSCLC-vs.-SCLC-(NSCLC-and-SCLC-biomarkers)">
+<h3>NSCLC vs. SCLC (NSCLC and SCLC biomarkers)<a class="headerlink" href="#NSCLC-vs.-SCLC-(NSCLC-and-SCLC-biomarkers)" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">STAVER_model</span><span class="p">,</span> <span class="n">raw_data_model</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span>
+                                         <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;KRT5&quot;</span><span class="p">,</span> <span class="s2">&quot;DSC3&quot;</span><span class="p">,</span> <span class="s2">&quot;CHGA&quot;</span><span class="p">,</span> <span class="s2">&quot;NCAM1&quot;</span><span class="p">,</span> <span class="s2">&quot;SYP&quot;</span><span class="p">,</span> <span class="s2">&quot;GRP&quot;</span><span class="p">],</span>
+                                         <span class="n">cancer_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Small Cell Lung Carcinoma&quot;</span><span class="p">,</span> <span class="s2">&quot;Non-Small Cell Lung Carcinoma&quot;</span><span class="p">])</span>
+
+<span class="n">outpath</span> <span class="o">=</span> <span class="s2">&quot;~/DIA-STAVER/949-cell-lines-1/model-evaluate/benchmark_models_based_on_lung_markers.pdf&quot;</span>
+
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">ModelEvaluator</span><span class="p">(</span><span class="n">raw_data_model</span><span class="p">,</span> <span class="n">STAVER_model</span><span class="p">,</span>
+                            <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Cancer_type&#39;</span><span class="p">,</span>
+                            <span class="n">k_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                            <span class="n">auc_scale</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+                            <span class="n">outpath</span><span class="o">=</span><span class="n">outpath</span>
+                            <span class="p">)</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">train_models</span><span class="p">()</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">plot_rocs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+XGBoost on Original data: AUC = 0.82 (0.78-0.87)
+XGBoost on STAVER data: AUC = 0.91 (0.86-0.94)
+z score = -2.71389;
+p value = 0.00665;
+There is a significant difference
+
+
+Random Forest on Original data: AUC = 0.80 (0.74-0.85)
+Random Forest on STAVER data: AUC = 0.95 (0.92-0.96)
+z score = -5.21232;
+p value = 0.00000;
+There is a significant difference
+
+
+Logistic Regression on Original data: AUC = 0.85 (0.81-0.89)
+Logistic Regression on STAVER data: AUC = 0.94 (0.91-0.96)
+z score = -3.96235;
+p value = 0.00007;
+There is a significant difference
+
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PanCancer_949_cellline_models_21_1.png" src="_images/PanCancer_949_cellline_models_21_1.png" />
+</div>
+</div>
+</section>
+<section id="Glioma-biomarkers">
+<h3>Glioma biomarkers<a class="headerlink" href="#Glioma-biomarkers" title="Link to this heading">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">STAVER_model</span><span class="p">,</span> <span class="n">raw_data_model</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span>
+                                         <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GFAP&quot;</span><span class="p">,</span><span class="s2">&quot;NES&quot;</span><span class="p">],</span>
+                                         <span class="n">cancer_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Glioma&quot;</span><span class="p">])</span>
+
+<span class="n">outpath</span> <span class="o">=</span> <span class="s2">&quot;~/DIA-STAVER/949-cell-lines-1/model-evaluate/benchmark_models_based_on_glioma_markers.pdf&quot;</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">ModelEvaluator</span><span class="p">(</span><span class="n">raw_data_model</span><span class="p">,</span> <span class="n">STAVER_model</span><span class="p">,</span>
+                            <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Cancer_type&#39;</span><span class="p">,</span>
+                            <span class="n">k_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                            <span class="n">outpath</span><span class="o">=</span><span class="n">outpath</span><span class="p">,</span>
+                            <span class="p">)</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">train_models</span><span class="p">()</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">plot_rocs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Pancreatic-Carcinoma-biomarkers">
+<h3>Pancreatic Carcinoma biomarkers<a class="headerlink" href="#Pancreatic-Carcinoma-biomarkers" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">STAVER_model</span><span class="p">,</span> <span class="n">raw_data_model</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;Cancer_type&quot;</span><span class="p">,</span>
+                                         <span class="n">genes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MUC1&quot;</span><span class="p">,</span> <span class="s2">&quot;ANO1&quot;</span><span class="p">,</span> <span class="s2">&quot;DHRS9&quot;</span><span class="p">,</span> <span class="s2">&quot;S100P&quot;</span><span class="p">],</span>
+                                         <span class="n">cancer_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Pancreatic Carcinoma&quot;</span><span class="p">])</span>
+
+<span class="n">outpath</span> <span class="o">=</span> <span class="s2">&quot;~/DIA-STAVER/949-cell-lines-1/model-evaluate/benchmark_models_based_on_PDAC_markers.pdf&quot;</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">ModelEvaluator</span><span class="p">(</span><span class="n">raw_data_model</span><span class="p">,</span> <span class="n">STAVER_model</span><span class="p">,</span>
+                            <span class="n">target</span><span class="o">=</span><span class="s1">&#39;Cancer_type&#39;</span><span class="p">,</span>
+                            <span class="n">k_fold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                            <span class="n">outpath</span><span class="o">=</span><span class="n">outpath</span>
+                            <span class="p">)</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">train_models</span><span class="p">()</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">plot_rocs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+XGBoost on Original data: AUC = 0.80 (0.75-0.85)
+XGBoost on STAVER data: AUC = 0.88 (0.84-0.92)
+z score = -2.80131;
+p value = 0.00509;
+There is a significant difference
+
+
+Random Forest on Original data: AUC = 0.79 (0.74-0.84)
+Random Forest on STAVER data: AUC = 0.88 (0.83-0.91)
+z score = -3.26500;
+p value = 0.00109;
+There is a significant difference
+
+
+Logistic Regression on Original data: AUC = 0.76 (0.70-0.82)
+Logistic Regression on STAVER data: AUC = 0.85 (0.80-0.89)
+z score = -4.05580;
+p value = 0.00005;
+There is a significant difference
+
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/PanCancer_949_cellline_models_25_1.png" src="_images/PanCancer_949_cellline_models_25_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PanCancer_949_celline_analysis.html" class="btn btn-neutral float-left" title="The robust generalization performance of the STAVER algorithm across diverse and large-scale DIA datasets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Ding Lab, 2023.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

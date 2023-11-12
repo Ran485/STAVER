@@ -1,0 +1,12 @@
+Release notes
+=============
+
+0.1.1 (2023-10-25)
+------------------
+
+* Fixed bug in `setup.py` that prevented installation.
+
+0.1.0 (2023-03-25)
+------------------
+
+* First release on PyPI.

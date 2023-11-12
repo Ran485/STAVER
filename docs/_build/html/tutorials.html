@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorials &mdash; STAVER 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example datasets" href="dataset.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            STAVER
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#stage-1-data-input-output-i-o">Stage 1: Data Input/Output (I/O)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-ingestion">Data Ingestion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intermediate-data-management">Intermediate Data Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#finalized-result-archiving-and-storage">Finalized Result Archiving and Storage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#stage-2-data-preprocessing">Stage 2: Data preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#harmonizing-output-schemas">Harmonizing Output Schemas:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#false-discovery-rate-fdr-assessment">False Discovery Rate (FDR) Assessment:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constructing-extensive-index">Constructing Extensive Index:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#infrastructure-recommendations">Infrastructure Recommendations:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#stage-3-high-confidence-peptide-identification">Stage 3: High-confidence Peptide Identification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#stage-4-protein-quantitative-inference">Stage 4: Protein quantitative inference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-of-the-maxlfq-algorithm-in-python">Implementation of the MaxLFQ Algorithm in Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#staver-pipeline-module">5、STAVER pipeline module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-staver-pipeline">Using the STAVER_pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-documentation">Usage Documentation:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dataset.html">Example datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Release notes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">STAVER</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tutorials</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorials.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorials">
+<h1>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">STAVER</span></code> consists of four main modules: (I) the input/output module, (II) the data preprocessing module, (III) the high-confidence peptide identification (High-CI-Peptides) module, and (IV) the protein quantification (Peptide-to-Protein inference) module. STAVER, featuring a modular design, provides flexible compatibility with existing DIA MS data analysis pipelines. The operational sequence of STAVER and the functions of each module are delineated as follows. An <code class="docutils literal notranslate"><span class="pre">STAVER</span></code> workflow can be divided into the following four stages. Here, we provide a brief overview of each stage and link to the corresponding tutorial.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">STAVER</span></code> workflow is implemented in the <code class="docutils literal notranslate"><span class="pre">staver_pipeline</span></code> module. This module provides a comprehensive proteomics data analysis tool designed to streamline the workflow from raw data preprocessing to the final result output. We provide a tutorial for running the <code class="docutils literal notranslate"><span class="pre">STAVER</span></code> workflow on DIA-MS dataset with the <code class="docutils literal notranslate"><span class="pre">Command-Line</span> <span class="pre">Interface</span> <span class="pre">(CLI)</span></code>, <code class="docutils literal notranslate"><span class="pre">Calling</span> <span class="pre">the</span> <span class="pre">Function</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">List</span> <span class="pre">parameters</span></code>, and <code class="docutils literal notranslate"><span class="pre">Calling</span> <span class="pre">the</span> <span class="pre">Function</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">Dict</span> <span class="pre">parameters</span></code> The tutorial is designed to be a step-by-step guide for users to run the <code class="docutils literal notranslate"><span class="pre">STAVER</span></code> workflow on their own DIA-MS datasets. The tutorial is divided into the following sections:</p>
+<p><img alt="Alt text" src="_images/modules_framwork.svg" /></p>
+<section id="stage-1-data-input-output-i-o">
+<h2>Stage 1: Data Input/Output (I/O)<a class="headerlink" href="#stage-1-data-input-output-i-o" title="Link to this heading">¶</a></h2>
+<p>In the realm of proteomics software development, ensuring seamless data management is paramount. At the forefront of this process lies the Input/Output (I/O) module. This module serves as the gateway for data flow within the system. Its primary responsibilities include: (1) ingesting data, (2) archiving intermediate outcomes, and (3) storing finalized processed results.</p>
+<section id="data-ingestion">
+<h3>Data Ingestion<a class="headerlink" href="#data-ingestion" title="Link to this heading">¶</a></h3>
+<p>The Input/Output (I/O) module efficiently processes various proteomic data types, supporting multiple formats and sources. It ensures data integrity and reduces data loss risks. The module uses the <code class="docutils literal notranslate"><span class="pre">joblib_load_file</span></code> function to load datasets in parallel, utilizing all available CPU cores, excluding two, <code class="docutils literal notranslate"><span class="pre">(CPU</span> <span class="pre">cores</span> <span class="pre">-</span> <span class="pre">2)</span></code>. The default CPU allocation can be adjusted using the <code class="docutils literal notranslate"><span class="pre">-thread_numbers</span> <span class="pre">CPU_numbers</span></code> parameter for greater control and enhanced flexibility.</p>
+<p>It should be highlighted that the input module supports a variety of proteomic file formats as dataset input, including the following file extensions: <code class="docutils literal notranslate"><span class="pre">csv,.tsv,.txt,.xls,.xlsx,.xlsm,.mzTab,.mzIdentML(.mzid),.pepXML,</span> <span class="pre">and.protXML.</span></code> Datasets with other attachments must be converted to a supported format before loading.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pyteomics</span> <span class="kn">import</span> <span class="n">mzid</span><span class="p">,</span> <span class="n">pepxml</span><span class="p">,</span> <span class="n">protxml</span><span class="p">,</span> <span class="n">mztab</span>
+
+<span class="kn">from</span> <span class="nn">staver.data</span> <span class="kn">import</span> <span class="n">joblib_load_file</span>
+
+<span class="k">def</span> <span class="nf">read_proteomics_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads various proteomics output file formats and returns the content.</span>
+
+<span class="sd">    This function reads data from different proteomics file formats and returns</span>
+<span class="sd">    it as a pandas DataFrame. It supports common file formats like CSV, TSV, Excel,</span>
+<span class="sd">    and specialized formats like mzid, pepxml, protxml, and mztab.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        file_path (str): Path to the proteomics file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: DataFrame containing the data from the file.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the file does not exist or if the file extension is unsupported.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2"> does not exist!&quot;</span><span class="p">)</span>
+
+    <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file_path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1"># Reading common file formats</span>
+    <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.tsv&#39;</span><span class="p">,</span> <span class="s1">&#39;.csv&#39;</span><span class="p">]:</span>
+        <span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.tsv&#39;</span> <span class="k">else</span> <span class="s1">&#39;,&#39;</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.xls&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsm&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+    <span class="c1"># Reading specialized proteomics file formats</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.mzid&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mzid</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+        <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.pepxml&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pepxml</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+        <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.protxml&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">protxml</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+        <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.mztab&#39;</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">mztab</span><span class="o">.</span><span class="n">MzTab</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">reader</span><span class="p">:</span>
+                <span class="n">psm_data</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">spectrum_match_table</span>
+                <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">psm_data</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error reading </span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2"> file at </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported file extension: </span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Example usage</strong></p>
+<ul class="simple">
+<li><p>Read single proteomic file</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver.data</span> <span class="kn">import</span> <span class="n">read_proteomics_file</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">read_proteomics_file</span><span class="p">(</span><span class="s1">&#39;path_to_file.txt&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Read multiple proteomic files
+For large-scale DIA research cohorts (hundreds or thousands of DIA datasets), the <code class="docutils literal notranslate"><span class="pre">joblib_load_file</span></code> function to efficiently load proteomic datasets in parallel, with default to all available CPU cores <code class="docutils literal notranslate"><span class="pre">(CPU</span> <span class="pre">cores</span> <span class="pre">-</span> <span class="pre">2)</span></code>. Users can enhance flexibility by adjusting the default allocation using the <code class="docutils literal notranslate"><span class="pre">-thread_numbers</span> <span class="pre">CPU_numbers</span></code> parameter.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver.data</span> <span class="kn">import</span> <span class="n">joblib_load_file</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">joblib_load_file</span><span class="p">(</span><span class="n">inpath</span><span class="o">=</span><span class="s2">&quot;/path/to/files&quot;</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="n">NUM_WORKERS</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="err">）</span>
+</pre></div>
+</div>
+</section>
+<section id="intermediate-data-management">
+<h3>Intermediate Data Management<a class="headerlink" href="#intermediate-data-management" title="Link to this heading">¶</a></h3>
+<p>During proteomic dataset processing, the software generates intermediate results. These vary from temporary data sets for specific computational tasks to more significant milestone results within the processing pipeline. The I/O module archives these results for potential future review or analysis.</p>
+</section>
+<section id="finalized-result-archiving-and-storage">
+<h3>Finalized Result Archiving and Storage<a class="headerlink" href="#finalized-result-archiving-and-storage" title="Link to this heading">¶</a></h3>
+<p>Upon completing data processing, the software archives the final results. The I/O module not only secures these results but also organizes them for easy access and further analysis. While the default output path is the current program’s running directory, users have the option to specify a custom output path.</p>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver</span> <span class="kn">import</span> <span class="n">staver_pipeline</span>
+
+<span class="c1"># construct the parameter list</span>
+<span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;--thread_numbers&quot;</span><span class="p">,</span> <span class="s2">&quot;8&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--input&quot;</span><span class="p">,</span> <span class="s2">&quot;path_to_input&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--output_peptide&quot;</span><span class="p">,</span> <span class="s2">&quot;path_to_output_peptide&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--output_protein&quot;</span><span class="p">,</span> <span class="s2">&quot;path_to_output_protein&quot;</span><span class="p">,</span>
+    <span class="c1"># Other required parameters</span>
+<span class="p">]</span>
+
+<span class="c1"># construct parameters in dictionary format</span>
+<span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;thread_numbers&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="s2">&quot;path_to_input&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;output_peptide&quot;</span><span class="p">:</span> <span class="s2">&quot;path_to_output_peptide&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;output_protein&quot;</span><span class="p">:</span> <span class="s2">&quot;path_to_output_protein&quot;</span><span class="p">,</span>
+    <span class="c1"># Other required parameters</span>
+<span class="p">}</span>
+
+<span class="c1"># running function</span>
+<span class="n">staver_pipeline</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="stage-2-data-preprocessing">
+<h2>Stage 2: Data preprocessing<a class="headerlink" href="#stage-2-data-preprocessing" title="Link to this heading">¶</a></h2>
+<p>The data preprocessing module plays a pivotal role in harmonizing disparate data formats, originating from diverse DIA (Data-Independent Acquisition) search algorithms, into a unified and standardized representation. This consolidation ensures that data from varying sources is not only compatible but also primed for subsequent analyses with enhanced accuracy.</p>
+<section id="harmonizing-output-schemas">
+<h3>Harmonizing Output Schemas:<a class="headerlink" href="#harmonizing-output-schemas" title="Link to this heading">¶</a></h3>
+<p>Different DIA search algorithms can produce outputs with diverse schemas, possibly using various naming conventions and data structures. Such disparities can impede consistent data analysis. The data preprocessing module addresses this by:</p>
+<p><strong>Standardizing Naming Conventions</strong>: Given the myriad of tools and platforms in proteomics, different terminologies might refer to the same entity across datasets. By employing a uniform naming convention for proteins, peptides, and other entities, this module ensures seamless integration of data from multiple sources.</p>
+<p><strong>Achieving a Cohesive Data-frame Format</strong>: Post the harmonization of naming conventions, all data gets consolidated into a singular, cohesive data-frame format. This structured representation not only simplifies data handling but also ensures uniformity in subsequent analytical procedures.</p>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver.preprocessing</span> <span class="kn">import</span> <span class="n">harmonize_columns</span>
+
+<span class="c1"># running function</span>
+<span class="c1"># Assuming you have dataframes df_DIANN, df_spectronaut and df_openswath from the respective software.</span>
+<span class="n">df_openswath_harmonized</span> <span class="o">=</span> <span class="n">harmonize_columns</span><span class="p">(</span><span class="n">df_DIANN</span><span class="p">,</span> <span class="s1">&#39;DIA-NN&#39;</span><span class="p">)</span>
+<span class="n">df_spectronaut_harmonized</span> <span class="o">=</span> <span class="n">harmonize_columns</span><span class="p">(</span><span class="n">df_spectronaut</span><span class="p">,</span> <span class="s1">&#39;Spectronaut&#39;</span><span class="p">)</span>
+<span class="n">df_openswath_harmonized</span> <span class="o">=</span> <span class="n">harmonize_columns</span><span class="p">(</span><span class="n">df_openswath</span><span class="p">,</span> <span class="s1">&#39;OpenSWATH&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="false-discovery-rate-fdr-assessment">
+<h3>False Discovery Rate (FDR) Assessment:<a class="headerlink" href="#false-discovery-rate-fdr-assessment" title="Link to this heading">¶</a></h3>
+<p>Data accuracy and integrity are paramount in proteomics. The module takes significant strides in ensuring data quality by:</p>
+<p><strong>Two-dimensional FDR Assessment</strong>: A nuanced, two-dimensional approach is adopted to scrutinize false discoveries at both peptide and protein levels. This comprehensive assessment minimizes errors by accounting for discrepancies at various granularities, enhancing the precision of findings.</p>
+<p><strong>Improving Precision:</strong> By systematically curtailing false discoveries, the module accentuates the reliability and credibility of the processed data.</p>
+</section>
+<section id="constructing-extensive-index">
+<h3>Constructing Extensive Index:<a class="headerlink" href="#constructing-extensive-index" title="Link to this heading">¶</a></h3>
+<p>To expedite subsequent data operations, an extensive index is constructed, pivoting on unique peptide and protein identifiers. This indexed approach:</p>
+<p><strong>Enhances Data Retrieval:</strong> By utilizing identifiers as primary keys, data retrieval operations become significantly more efficient, ensuring prompt responses even with voluminous datasets.</p>
+<p><strong>Facilitates Data Operations:</strong> With a systematic index in place, various data operations, including searches, updates, and manipulations, become streamlined, reducing computational overheads.</p>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver.preprocessing</span> <span class="kn">import</span> <span class="n">construct_index</span>
+
+<span class="c1"># running function</span>
+<span class="c1"># Assuming you have dataframes df_DIANN, df_spectronaut and df_openswath from the respective software.</span>
+<span class="n">df_openswath_indexed</span> <span class="o">=</span> <span class="n">construct_index</span><span class="p">(</span><span class="n">df_openswath_harmonized</span><span class="p">,</span> <span class="s1">&#39;DIA-NN&#39;</span><span class="p">)</span>
+<span class="n">df_spectronaut_indexed</span> <span class="o">=</span> <span class="n">construct_index</span><span class="p">(</span><span class="n">df_spectronaut_harmonized</span><span class="p">,</span> <span class="s1">&#39;Spectronaut&#39;</span><span class="p">)</span>
+<span class="n">df_openswath_indexed</span> <span class="o">=</span> <span class="n">construct_index</span><span class="p">(</span><span class="n">df_openswath_harmonized</span><span class="p">,</span> <span class="s1">&#39;OpenSWATH&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="infrastructure-recommendations">
+<h3>Infrastructure Recommendations:<a class="headerlink" href="#infrastructure-recommendations" title="Link to this heading">¶</a></h3>
+<p>Proteomics datasets, especially after comprehensive preprocessing, can be colossal. To handle the complexity and volume, we need to optimize the memory occupied by the data in a timely manner. The data preprocessing module addresses this by:</p>
+<p><strong>Optimizing Memory Usage:</strong> The module optimizes memory usage by reducing the memory occupied by the data. This ensures that even the most extensive datasets are processed without bottlenecks, guaranteeing smooth and uninterrupted operations.</p>
+<p><strong>Robust Computational Infrastructure:</strong> A sturdy infrastructure, preferably with at least 32 GB of operational memory, is advised. Such an infrastructure ensures that even the most extensive datasets are processed without bottlenecks, guaranteeing smooth and uninterrupted operations.</p>
+<p><strong>Scalability Considerations:</strong> Given the ever-evolving nature of proteomics data, it’s prudent to opt for a system that allows for easy scalability. This ensures that as datasets grow, the infrastructure can be augmented without significant overhauls.</p>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver.preprocessing</span> <span class="kn">import</span> <span class="n">reduce_mem_usage</span>
+
+<span class="k">def</span> <span class="nf">memory_usage_info</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span> <span class="n">start_mem</span><span class="p">,</span> <span class="n">end_mem</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Print the memory usage information.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Memory usage decreased from </span><span class="si">{</span><span class="n">start_mem</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB to </span><span class="si">{</span><span class="n">end_mem</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">start_mem</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">end_mem</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">start_mem</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% reduction)&quot;</span>
+        <span class="p">)</span>
+
+<span class="n">original_memory</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">df_reduced</span> <span class="o">=</span> <span class="n">reduce_mem_usage</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">reduced_memory</span> <span class="o">=</span> <span class="n">df_reduced</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">memory_usage_info</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">start_mem</span><span class="o">=</span><span class="n">original_memory</span><span class="p">,</span> <span class="n">end_mem</span><span class="o">=</span><span class="n">reduced_memory</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="stage-3-high-confidence-peptide-identification">
+<h2>Stage 3: High-confidence Peptide Identification<a class="headerlink" href="#stage-3-high-confidence-peptide-identification" title="Link to this heading">¶</a></h2>
+<p>To ensure the authenticity and reliability of identified peptides, this module is meticulously designed to sift through peptide matrices, setting apart genuine peptides from potential artifacts. These artifacts often arise from non-biological interferenc and noise, which can significantly obfuscate downstream proteomic analyses.</p>
+<p>During peptide identification, the high-confidence peptide module conducts a comprehensive analysis on a set of  ‘n’ peptide matrices from a standardized benchmark dataset, each derived from technical replicate samples for continuous injection searched against the hybrid spectral library. Integrating prior knowledge from the benchmark dataset significantly enhances the analytical capability. The module carefully differentiates high-confidence peptides from potential artifacts, primarily introduced by nonbiological noise. The core of the high-confidence peptide module is the peptide scores calculation step. Comprehensive peptide confidence assessment employs a strategy that synergistically combines peptide frequency, fragment intensities, peptide retention times (RT), and variation metrics across samples. First, the prior data from the benchmark dataset are loaded. Peptides with the same sequence but different PTMs and/or charges are treated as different peptides. This list is then passed through the scoring and ranking system to yield the peptide confidence scores and ranks. Each peptide is assigned a normalized metric score ranging from 0 to 1, with scores closer to 1 signify an elevated degree of confidence in the peptide’s authenticity. The module employs a multi-pronged approach to identify high-confidence peptides, including:</p>
+<p><strong>Prior Knowledge Integration:</strong> The module leverages prior knowledge from a standardized benchmark dataset to enhance analytical capabilities. This integration ensures that the module is primed to identify peptides with a high degree of accuracy.</p>
+<p><strong>Comprehensive Peptide Confidence Assessment:</strong> The module employs a multi-faceted approach to assess peptide confidence. This includes evaluating peptide frequency, fragment intensities, retention times, and variation metrics across samples. This comprehensive assessment ensures that only high-confidence peptides are identified, minimizing the risk of false discoveries.</p>
+<p><strong>Synergistic Scoring and Ranking:</strong> The module employs a synergistic scoring and ranking system to identify high-confidence peptides. This ensures that the most reliable peptides are identified, enhancing the credibility of subsequent analyses.</p>
+<p><strong>Enhanced Analytical Capabilities:</strong> By employing a multi-pronged approach to identify high-confidence peptides, the module significantly enhances the analytical capabilities of the software, ensuring that only the most reliable peptides are identified.</p>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">HighCIPeptides</span></code> class can be used by creating an instance of the class and calling the  <code class="docutils literal notranslate"><span class="pre">main()</span></code>  method. The  <code class="docutils literal notranslate"><span class="pre">main()</span></code>  method performs the entire high confidence peptide identification workflow and returns the path to the reference file with the top precursor ions.</p>
+<p>To customize the behavior of the <code class="docutils literal notranslate"><span class="pre">HighCIPeptides</span></code> class, you can modify the default attribute values or pass different values as parameters when creating an instance of the class.</p>
+<p>To use the <code class="docutils literal notranslate"><span class="pre">HighCIPeptides</span></code> module, simply import the <code class="docutils literal notranslate"><span class="pre">HighCIPeptides</span></code> class and call the  <code class="docutils literal notranslate"><span class="pre">main()</span></code>  method:</p>
+<p><strong>Example usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver.HighCIPeptides</span> <span class="kn">import</span> <span class="n">HighCIPeptides</span>
+
+<span class="c1"># Initialize the defined class</span>
+<span class="n">staver</span> <span class="o">=</span> <span class="n">HighCIPeptides</span><span class="p">()</span>
+<span class="n">staver</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="stage-4-protein-quantitative-inference">
+<h2>Stage 4: Protein quantitative inference<a class="headerlink" href="#stage-4-protein-quantitative-inference" title="Link to this heading">¶</a></h2>
+<p>In the realm of proteomics, accurate protein quantification and peptide-to-protein inference stand as cardinal processes, paving the way for the in-depth exploration of cellular systems and biological processes. The <code class="docutils literal notranslate"><span class="pre">PeptideToProteinInference</span></code> module is designed to infer proteins from high-confidence peptides. Which employs the MaxLFQ algorithm, renowned for its precision and robustness (<a class="reference external" href="https://doi:10.1074/mcp.M113.031591">Cox et al., 2014; Mol Cell Proteomics; PMID: 24942700</a>), to estimate relative protein abundances from ion quantification in DIA-MS-based proteomics. Notably, we present an open-source implementation of the widely-used maximal peptide ratio extraction algorithm of the MaxLFQ algorithm in Python, previously only compatible with data-dependent acquisition mode in the closed-source MaxQuant software package.</p>
+<p>The custom-defined <code class="docutils literal notranslate"><span class="pre">MaxLFQ</span></code> function for protein quantification in the DIA data processing pipeline was integrated into the <code class="docutils literal notranslate"><span class="pre">PeptideToProteinInference</span></code> module. The following elucidates the process of implementing the Protein Quantification (Peptide-to-Protein Inference) Module.</p>
+<section id="implementation-of-the-maxlfq-algorithm-in-python">
+<h3>Implementation of the MaxLFQ Algorithm in Python<a class="headerlink" href="#implementation-of-the-maxlfq-algorithm-in-python" title="Link to this heading">¶</a></h3>
+<p>This following code defines the <code class="docutils literal notranslate"><span class="pre">maxLFQ</span></code> function that calculates the maximum likelihood fold change estimates for each column of the input DataFrame <code class="docutils literal notranslate"><span class="pre">X</span></code>. The function returns a dictionary with the keys <code class="docutils literal notranslate"><span class="pre">'estimate'</span></code> and <code class="docutils literal notranslate"><span class="pre">'annotation'</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MaxLFQOptimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for optimizing the maxLFQ algorithm using Numba for faster computation.</span>
+
+<span class="sd">    This class contains methods for performing the maxLFQ quantification algorithm on mass spectrometry data.</span>
+<span class="sd">    It is optimized with Numba to improve performance.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        _spread(i, g, cc, X): Assigns group labels to elements in a matrix.</span>
+<span class="sd">        _maxLFQ_do(X_sub): Performs the maxLFQ algorithm on a subset of the data.</span>
+<span class="sd">        maxLFQ_fast(X): Applies the maxLFQ algorithm to the given data matrix.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; optimizer = MaxLFQOptimizer()</span>
+<span class="sd">        &gt;&gt;&gt; data = np.array([[np.nan, 1, 2], [np.nan, np.nan, 2], [3, 4, np.nan]])</span>
+<span class="sd">        &gt;&gt;&gt; result = optimizer.maxLFQ_fast(data)</span>
+<span class="sd">        &gt;&gt;&gt; print(result)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        This is an optimized version of the algorithm, designed for large-scale computations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Initializes the MaxLFQOptimizer class. &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@numba</span><span class="o">.</span><span class="n">jit</span>
+    <span class="k">def</span> <span class="nf">_spread</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursively assigns group labels to elements in a matrix.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            i (int): The current column index in the matrix.</span>
+<span class="sd">            g (np.ndarray): An array to store group labels.</span>
+<span class="sd">            cc (int): The current group label.</span>
+<span class="sd">            X (np.ndarray): The input data matrix.</span>
+
+<span class="sd">        This method is part of the maxLFQ algorithm and is optimized with Numba.</span>
+<span class="sd">        It assigns group labels to elements in X, based on their non-NaN status and connectivity.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cc</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">i</span><span class="p">]):</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">k</span><span class="p">]):</span>
+                        <span class="n">MaxLFQOptimizer</span><span class="o">.</span><span class="n">_spread</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@numba</span><span class="o">.</span><span class="n">jit</span>
+    <span class="k">def</span> <span class="nf">_maxLFQ_do</span><span class="p">(</span><span class="n">X_sub</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs the maxLFQ algorithm on a subset of the data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X_sub (np.ndarray): A subset of the original data matrix.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: The results of the maxLFQ algorithm on X_sub.</span>
+
+<span class="sd">        This method implements the maxLFQ algorithm, optimized with Numba. It calculates the relative</span>
+<span class="sd">        quantities of peptides/proteins from the input LC-MS/MS data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">X_sub</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">AtA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+        <span class="n">Atb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+                <span class="n">r_i_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">X_sub</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">X_sub</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">r_i_j</span><span class="p">):</span>
+                    <span class="n">AtA</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">AtA</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="n">AtA</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">AtA</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">Atb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">r_i_j</span>
+                    <span class="n">Atb</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r_i_j</span>
+
+        <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="n">AtA</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">))]),</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">0</span><span class="p">])])</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Atb</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">X_sub</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">)</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">lstsq</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">lapack_driver</span><span class="o">=</span><span class="s1">&#39;gelsy&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">res</span><span class="p">[:</span><span class="n">N</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">maxLFQ_fast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies the maxLFQ algorithm to the given data matrix.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (np.ndarray): A data matrix where rows represent samples and columns represent features.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary with two keys: &#39;estimate&#39; containing the quantification result, and</span>
+<span class="sd">                  &#39;annotation&#39; containing information about the calculation or errors.</span>
+
+<span class="sd">        This method checks for empty or NaN-only data, handles single-row data, assigns group labels,</span>
+<span class="sd">        and applies the maxLFQ algorithm to each group of features.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;estimate&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">:</span> <span class="s2">&quot;Empty array&quot;</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;estimate&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">:</span> <span class="s2">&quot;All NaN values&quot;</span><span class="p">}</span>
+
+        <span class="c1"># Handle single row case</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;estimate&quot;</span><span class="p">:</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;annotation&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]}</span>
+
+        <span class="n">N</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># 使用 numba 加速的函数调用</span>
+        <span class="n">cc</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+                <span class="n">cc</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_spread</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">cc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">g</span> <span class="o">==</span> <span class="n">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">w</span><span class="p">[</span><span class="n">ind</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">X_sub</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">]</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxLFQ_do</span><span class="p">(</span><span class="n">X_sub</span><span class="p">)</span>
+                <span class="n">w</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span>
+
+        <span class="c1"># Check for all NaN results</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;estimate&quot;</span><span class="p">:</span> <span class="n">w</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">:</span> <span class="s2">&quot;NA&quot;</span><span class="p">}</span>
+        
+        <span class="c1"># Preparing final results</span>
+        <span class="n">annotation</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;estimate&quot;</span><span class="p">:</span> <span class="n">w</span><span class="p">,</span> <span class="s2">&quot;annotation&quot;</span><span class="p">:</span> <span class="n">annotation</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The function first checks if all values in the DataFrame are NaN. If so, it returns a dictionary with NaN as the <code class="docutils literal notranslate"><span class="pre">'estimate'</span></code> value and the string “NA” as the <code class="docutils literal notranslate"><span class="pre">'annotation'</span></code> value.</p>
+<p>If the DataFrame contains non-NaN values, the function proceeds to calculate the maximum likelihood fold change estimates. It does this by iterating over the columns of the DataFrame and assigning group labels to non-NaN values using a recursive <code class="docutils literal notranslate"><span class="pre">_spread</span></code> function. The function then calculates the estimates using the <code class="docutils literal notranslate"><span class="pre">_maxLFQ_do</span></code> function, which performs matrix operations and solves a linear least squares problem.</p>
+<p>The resulting estimates are stored in an array <code class="docutils literal notranslate"><span class="pre">w</span></code>. If all values in <code class="docutils literal notranslate"><span class="pre">w</span></code> are NaN, the function returns a dictionary with <code class="docutils literal notranslate"><span class="pre">w</span></code> as the <code class="docutils literal notranslate"><span class="pre">'estimate'</span></code> value and the string “NA” as the <code class="docutils literal notranslate"><span class="pre">'annotation'</span></code> value.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">w</span></code> contains non-NaN values, the function checks if all samples within each group have the same label. If they do, it returns a dictionary with <code class="docutils literal notranslate"><span class="pre">w</span></code> as the <code class="docutils literal notranslate"><span class="pre">'estimate'</span></code> value and an empty string as the <code class="docutils literal notranslate"><span class="pre">'annotation'</span></code> value.</p>
+<p>If the samples within each group have different labels, the function updates the labels to NaN for the samples with NaN estimates, and returns a dictionary with <code class="docutils literal notranslate"><span class="pre">w</span></code> as the <code class="docutils literal notranslate"><span class="pre">'estimate'</span></code> value and a string representation of the updated labels joined by ‘;’ as the <code class="docutils literal notranslate"><span class="pre">'annotation'</span></code> value.</p>
+</section>
+<section id="id1">
+<h3>Usage<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>To enhance the <code class="docutils literal notranslate"><span class="pre">maxLFQ</span></code> algorithm’s performance in processing large-scale proteomics data, we have optimized its computational efficiency. Additionally, we evaluated and compared its performance across datasets of varying sample sizes. For more details, please refer to the <a class="reference external" href="https://opensource.salesforce.com/STAVER/latest/staver.html#protein-quantification-peptide-to-protein-inference">documentation</a>.</p>
+<p><strong>Example usage:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver.PeptideToProteinInference</span> <span class="kn">import</span> <span class="n">MaxLFQOptimizer</span>
+<span class="kn">from</span> <span class="nn">staver.utils</span> <span class="kn">import</span> <span class="n">generate_test_peptide_data</span>
+
+<span class="c1"># Create a sample DataFrame</span>
+<span class="n">peptide_intensities</span> <span class="o">=</span> <span class="n">generate_test_peptide_data</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span> 
+
+<span class="c1"># Execute the maxLFQ function</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">MaxLFQOptimizer</span><span class="p">()</span> <span class="c1"># Create an instance of MaxLFQOptimizer</span>
+
+<span class="c1"># Apply the maxLFQ method</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">maxLFQ_fast</span><span class="p">(</span><span class="n">peptide_intensities</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>   
+
+<span class="c1"># Print the result</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="staver-pipeline-module">
+<h2>5、STAVER pipeline module<a class="headerlink" href="#staver-pipeline-module" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">STAVER</span></code> algorithm, is implemented and encapsulated in the <code class="docutils literal notranslate"><span class="pre">staver_pipeline</span></code> module, offers a comprehensive tool for proteomics data analysis. It streamlines the entire process from raw data preprocessing to final result generation. As a command-line based module, it enables efficient processing of large-scale DIA MS data using the standardized <code class="docutils literal notranslate"><span class="pre">STAVER</span></code> algorithm, primarily aimed at <code class="docutils literal notranslate"><span class="pre">variation</span> <span class="pre">reduction</span></code>. The module’s key features include:</p>
+<ul class="simple">
+<li><p><strong>High Flexibility:</strong> It supports multiple input file formats and allows users to adjust various parameters to suit their specific analysis requirements.</p></li>
+<li><p><strong>Scalability:</strong> The module can process hundreds or thousands of DIA datasets simultaneously.</p></li>
+<li><p><strong>Extensibility:</strong> Users can easily enhance the module with new features and functionalities.</p></li>
+<li><p><strong>Compatibility:</strong> STAVER’s modular design ensures it integrates well with existing DIA-MS data analysis pipelines.</p></li>
+</ul>
+<section id="using-the-staver-pipeline">
+<h3>Using the STAVER_pipeline<a class="headerlink" href="#using-the-staver-pipeline" title="Link to this heading">¶</a></h3>
+<p>To utilize the <code class="docutils literal notranslate"><span class="pre">staver_pipeline</span></code>, the command line interface requires specific parameters. These include thread numbers, input data paths, and output paths for peptide and protein data. Optional parameters such as the reference dataset path and count cutoffs can also be specified. The module contains a <code class="docutils literal notranslate"><span class="pre">ValidateParser</span></code> class to verify that the provided paths and values are correct and within the expected ranges. The <code class="docutils literal notranslate"><span class="pre">staver_pipeline</span></code> module also contains a <code class="docutils literal notranslate"><span class="pre">staver_arguments.txt</span></code> file that logs all the parameters used during the run. This file can be used for future reference and reproducibility.</p>
+</section>
+<section id="usage-documentation">
+<h3>Usage Documentation:<a class="headerlink" href="#usage-documentation" title="Link to this heading">¶</a></h3>
+<ol class="simple">
+<li><p><strong>Preparing the Environment:</strong></p>
+<ul class="simple">
+<li><p>Ensure that Python is installed on your system.</p></li>
+<li><p>Download or clone the STAVER_pipeline repository to your local machine or HPC.</p></li>
+</ul>
+</li>
+<li><p><strong>Setting Up the Parameters:</strong></p>
+<ul class="simple">
+<li><p>Open the command-line interface.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">-n</span></code> flag to set the number of threads for computation.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-i</span></code> flag should point to your input DIA data path.</p></li>
+<li><p>If you have a reference dataset, use the <code class="docutils literal notranslate"><span class="pre">-ref</span></code> flag to provide its path; otherwise, the default dataset will be used.</p></li>
+<li><p>Define the output paths for peptide data with <code class="docutils literal notranslate"><span class="pre">-o</span></code> and protein data with <code class="docutils literal notranslate"><span class="pre">-op</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Running the Pipeline:</strong></p>
+<ul class="simple">
+<li><p>Call the <code class="docutils literal notranslate"><span class="pre">staver_pipeline()</span></code> function by executing the script.</p></li>
+<li><p>Upon running, the script validates inputs, prints out all the parameters for review, and processes the input data through the STAVER algorithm.</p></li>
+<li><p>Users can monitor the progress directly in the command-line interface.</p></li>
+</ul>
+</li>
+<li><p><strong>Reviewing the Output:</strong></p>
+<ul class="simple">
+<li><p>After processing, the output will be stored at the designated output paths.</p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">staver_arguments.txt</span></code> for a log of the used arguments.</p></li>
+</ul>
+</li>
+<li><p><strong>Interpreting the Results:</strong></p>
+<ul class="simple">
+<li><p>The STAVER_pipeline module will produce cleaned, aligned, quantified, and statistically analyzed results.</p></li>
+<li><p>Users can utilize the output for further biological analysis and interpretation.</p></li>
+</ul>
+</li>
+<li><p><strong>Customizing the Process:</strong></p>
+<ul class="simple">
+<li><p>Users can set various optional parameters like coefficient of variation thresholds for peptides and proteins, NA thresholds, and top precursor ions.</p></li>
+<li><p>These options allow for customization of the data processing to align with the experimental needs.</p></li>
+</ul>
+</li>
+</ol>
+<p>For more detailed usage, one can always run the script with the <code class="docutils literal notranslate"><span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">--help</span></code> flag to get the help message explaining all available command arguments. The built-in versioning allows users to ensure they are using the correct version of the software, which is particularly useful for reproducibility and standardization across different studies.</p>
+<p><strong>Example usage:</strong></p>
+<ul class="simple">
+<li><p><strong>1. Command-Line Interface (CLI)</strong>: Use the CLI to run the <code class="docutils literal notranslate"><span class="pre">staver_pipeline</span></code> module.</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>STAVER
+
+python<span class="w">  </span>staver_pipeline.py<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--thread_numbers<span class="w"> </span>&lt;<span class="w"> </span>The<span class="w"> </span>CPU<span class="w"> </span>worker<span class="w"> </span>numbers,<span class="w"> </span>Default<span class="w"> </span>to<span class="w"> </span>nmax-2<span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--input<span class="w"> </span>&lt;<span class="w"> </span>The<span class="w"> </span>DIA<span class="w"> </span>data<span class="w"> </span>input<span class="w"> </span>directory&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--output_peptide<span class="w"> </span>&lt;<span class="w"> </span>The<span class="w"> </span>processed<span class="w"> </span>DIA<span class="w"> </span>peptide<span class="w"> </span>data<span class="w"> </span>output<span class="w"> </span>directory<span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--output_protein<span class="w"> </span>&lt;<span class="w"> </span>The<span class="w"> </span>processed<span class="w"> </span>DIA<span class="w"> </span>protein<span class="w"> </span>data<span class="w"> </span>output<span class="w"> </span>directory<span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--fdr_threshold<span class="w"> </span>&lt;<span class="w"> </span>Default<span class="w"> </span>to<span class="w"> </span><span class="m">0</span>.01<span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--count_cutoff_same_libs<span class="w"> </span>&lt;<span class="w"> </span>Default<span class="w"> </span>to<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--count_cutoff_diff_libs<span class="w"> </span>&lt;<span class="w"> </span>Default<span class="w"> </span>to<span class="w"> </span><span class="m">2</span><span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--proteins_cv_thresh<span class="w"> </span>&lt;<span class="w"> </span>Default<span class="w"> </span>to<span class="w"> </span><span class="m">0</span>.3<span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--na_threshold<span class="w"> </span>&lt;<span class="w"> </span>Default<span class="w"> </span>to<span class="w"> </span><span class="m">0</span>.3<span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--top_precursor_ions<span class="w"> </span>&lt;<span class="w"> </span>Default<span class="w"> </span>to<span class="w"> </span><span class="m">6</span><span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--file_suffix<span class="w"> </span>&lt;<span class="w"> </span>Default<span class="w"> </span>to<span class="w"> </span><span class="s2">&quot;_F1_R1&quot;</span><span class="w"> </span>&gt;<span class="w">  </span><span class="se">\</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>2. Calling the Function with a List</strong>: Directly invoke the <code class="docutils literal notranslate"><span class="pre">staver_pipeline</span></code> function from the staver module and pass a <code class="docutils literal notranslate"><span class="pre">list</span></code> of parameters to the <code class="docutils literal notranslate"><span class="pre">staver_pipeline</span></code> function.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver</span> <span class="kn">import</span> <span class="n">staver_pipeline</span>
+
+<span class="c1"># construct the parameter list</span>
+<span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;--thread_numbers&quot;</span><span class="p">,</span> <span class="s2">&quot;8&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--input&quot;</span><span class="p">,</span> <span class="s2">&quot;path_to_input&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--output_peptide&quot;</span><span class="p">,</span> <span class="s2">&quot;path_to_output_peptide&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--output_protein&quot;</span><span class="p">,</span> <span class="s2">&quot;path_to_output_protein&quot;</span><span class="p">,</span>
+    <span class="c1"># Other required parameters</span>
+<span class="p">]</span>
+
+<span class="c1"># running function</span>
+<span class="n">staver_pipeline</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>3. Calling the Function with a Dictionary</strong>: Directly invoke the <code class="docutils literal notranslate"><span class="pre">staver_pipeline</span></code> function from the <code class="docutils literal notranslate"><span class="pre">staver</span></code> module and pass a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of parameters to the <code class="docutils literal notranslate"><span class="pre">staver_pipeline</span></code> function.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">staver</span> <span class="kn">import</span> <span class="n">staver_pipeline</span>
+
+<span class="c1"># construct parameters in dictionary format</span>
+<span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;thread_numbers&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="s2">&quot;path_to_input&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;output_peptide&quot;</span><span class="p">:</span> <span class="s2">&quot;path_to_output_peptide&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;output_protein&quot;</span><span class="p">:</span> <span class="s2">&quot;path_to_output_protein&quot;</span><span class="p">,</span>
+    <span class="c1"># Other required parameters</span>
+<span class="p">}</span>
+
+<span class="c1"># running function</span>
+<span class="n">staver_pipeline</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dataset.html" class="btn btn-neutral float-right" title="Example datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Ding Lab, 2023.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
