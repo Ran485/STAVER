@@ -1,2 +1,13 @@
+# Required
+version: 2
+
+# Set the version of Python
+build:
+  os: ubuntu-20.04 # <- add this line
+  tools:
+    python: "3.10"
+
+# Configuration for Sphinx documentation
 sphinx:
   configuration: docs/conf.py
+  fail_on_warning: true
