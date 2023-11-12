@@ -24,7 +24,6 @@ For more details about the STAVER framework, please check out our `Preprint <htt
    :maxdepth: 2
    :caption: Contents:
 
-   readme
    installation
    tutorials
    dataset
