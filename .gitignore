@@ -12,3 +12,4 @@ _deps
 .Rproj.user
 .history/
 __pycache__
+.DSStore
