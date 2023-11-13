@@ -87,8 +87,8 @@ For large-scale DIA research cohorts (hundreds or thousands of DIA datasets), th
 ```python
 from staver.data import joblib_load_file
 
-result = joblib_load_file(inpath="/path/to/files", extension=".txt", num_workers=NUM_WORKERS)
-print(result.head(10)）
+result = joblib_load_file(inpath="/path/to/files", extension=".txt")
+print(result.head())
 ```
 
 ### Intermediate Data Management

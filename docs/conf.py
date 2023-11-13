@@ -50,8 +50,22 @@ extensions = [
     "nbsphinx",
     "sphinxcontrib.jupyter",
     "sphinx_plotly_directive",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.autosummary",
+    "sphinx_autopackagesummary",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
 ]
 
+html_show_sourcelink = True
+set_type_checking_flag = True
+typehints_fully_qualified = True
+napoleon_use_rtype = False
+autosummary_generate = True
+autosummary_generate_overwrite = True
+autodoc_preserve_defaults = True
+autodoc_inherit_docstrings = True
+autodoc_default_options = {"autosummary": True}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -62,8 +76,10 @@ templates_path = ["_templates"]
 source_parsers = {
     ".md": CommonMarkParser,
 }
-source_suffix = {".rst": "restructuredtext", ".txt": "markdown", ".md": "markdown"}
+source_suffix = {".rst": "restructuredtext", ".md": "markdown"}
 # source_suffix = '.rst'
+
+# exclude_patterns = ["readme.rst", "usage.rst", "requirements.txt"]
 
 # The master toctree document.
 master_doc = "index"

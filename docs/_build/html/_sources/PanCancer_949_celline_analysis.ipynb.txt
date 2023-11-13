@@ -7861,7 +7861,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "![Reported_cancer_biomarkers](\"/Users/ranpeng/Downloads/reported_cancer_biomarkers.png\")\n",
+    "![Reported_cancer_biomarkers](_static/reported_cancer_biomarkers.svg)\n",
     "\n",
     "All the results are shown in the above figure and can be reproduced with the R script `boxplot_949_PanCancer.R`."
    ]

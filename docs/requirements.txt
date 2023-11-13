@@ -5,3 +5,5 @@ nbsphinx
 sphinxcontrib_jupyter
 sphinx_plotly_directive
 sphinx_markdown_tables
+sphinxcontrib-napoleon
+sphinx-autopackagesummary
