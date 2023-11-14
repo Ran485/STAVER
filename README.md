@@ -65,9 +65,8 @@ Installing within a [conda environment](https://conda.io/projects/conda/en/lates
 
 ## Getting Started
 
-For example code and an introduction to the library, see the Jupyter notebooks in
-[tutorials](https://opensource.salesforce.com/STAVER/latest/tutorials.html), and the guided walkthrough
-[here](https://opensource.salesforce.com/STAVER/latest/index.html). A straightforward command-line demonstration for a quick start can be discovered in the following block.
+To get started with `STAVER`, see the the installation guided walkthrough in [here](https://staver.readthedocs.io/en/latest/installation.html#). For example code and an introduction to the library, please refer to the detailed discriptions in
+[tutorials](https://staver.readthedocs.io/en/latest/tutorials.html#). The following block presents an easy-to-follow guide and quick start for running the STAVER workflow using the Command-Line Interface (CLI).
 
 ```shell
 python  ./staver_pipeline.py \
@@ -83,31 +82,15 @@ python  ./staver_pipeline.py \
         --top_precursor_ions < Default to 6 > \
         --file_suffix < Default to "_F1_R1" >  \
 ```
-Run the `test-data` in the following block
-```shell
-python  ./staver/staver_pipeline.py \
-        --thread_numbers 16 \
-        --input ./staver/data/likai-diann-raw-20/ \
-        --reference_dataset_path ./data/likai-diann-raw \
-        --output_peptide ./staver/results/peptides/ \
-        --output_protein ./staver/results/proteins/ \
-        --count_cutoff_same_libs 1 \
-        --count_cutoff_diff_libs 2 \
-        --peptides_cv_thresh 0.3 \
-        --proteins_cv_thresh 0.3 \
-        --na_threshold 0.3 \
-        --top_precursor_ions 5 \
-        --file_suffix _F1_R1 \
-```
 
 ## Documentation
-To gain a comprehensive understanding of STAVER's application and to thoroughly appreciate the function and purpose of each parameter, we highly recommend perusing the all-encompassing STAVER [documentation](https://opensource.salesforce.com/STAVER/latest/index.html). This resource provides detailed, step-by-step instructions, accompanied by illustrative examples and clear explanations, equipping users with the knowledge to skillfully navigate and exploit the software's complete potential.
+To gain a comprehensive understanding of STAVER's functionality and parameters available in the software, we highly recommend exploring the [STAVER documentation](https://staver.readthedocs.io/en/latest/index.html). This documentation is crafted to be comprehensive and user-friendly, offering a step-by-step guide enriched with detailed instructions. Each feature is illustrated with practical examples and supported by clear, concise explanations, enabling users to effectively use and maximize the software's capabilities. 
 
 ## How to Contribute
 We welcome the contribution from the open-source community to improve the library!
 
 To add a new explanation method/feature into the library, please follow the template and steps demonstrated in this 
-[documentation](https://opensource.salesforce.com/STAVER/latest/staver.html#how-to-contribute).
+[contribution guidelines](https://staver.readthedocs.io/en/latest/contributing.html).
 
 ## Contact Us
 If you have any questions, comments or suggestions, please do not hesitate to contact us at 21112030023@m.fudan.edu.cn
