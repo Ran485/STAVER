@@ -1,6 +1,6 @@
 # Tutorials
 
-`STAVER` consists of four main modules: (I) the input/output module, (II) the data preprocessing module, (III) the high-confidence peptide identification (High-CI-Peptides) module, and (IV) the protein quantification (Peptide-to-Protein inference) module. STAVER, featuring a modular design, provides flexible compatibility with existing DIA MS data analysis pipelines. The operational sequence of STAVER and the functions of each module are delineated as follows. An `STAVER` workflow can be divided into the following four stages. Here, we provide a brief overview of each stage and link to the corresponding tutorial. 
+`STAVER` consists of four main modules: (I) the input/output module, (II) the data preprocessing module, (III) the high-confidence peptide identification (High-CI-Peptides) module, and (IV) the protein quantification (Peptide-to-Protein inference) module. STAVER, featuring a modular design, provides flexible compatibility with existing DIA-MS data analysis pipelines. The operational sequence of STAVER and the functions of each module are delineated as follows. An `STAVER` workflow can be divided into the following four stages. Here, we provide a brief overview of each stage and link to the corresponding tutorial. 
 
 The `STAVER` workflow is implemented in the `staver_pipeline` module. This module provides a comprehensive proteomics data analysis tool designed to streamline the workflow from raw data preprocessing to the final result output. We provide a tutorial for running the `STAVER` workflow on DIA-MS dataset with the `Command-Line Interface (CLI)`, `Calling the Function with a List parameters`, and `Calling the Function with a Dict parameters` The tutorial is designed to be a step-by-step guide for users to run the `STAVER` workflow on their own DIA-MS datasets. The tutorial is divided into the following sections:
 
@@ -12,7 +12,7 @@ In the realm of proteomics software development, ensuring seamless data manageme
 ### Data Ingestion
 The Input/Output (I/O) module efficiently processes various proteomic data types, supporting multiple formats and sources. It ensures data integrity and reduces data loss risks. The module uses the `joblib_load_file` function to load datasets in parallel, utilizing all available CPU cores, excluding two, `(CPU cores - 2)`. The default CPU allocation can be adjusted using the `-thread_numbers CPU_numbers` parameter for greater control and enhanced flexibility.
 
-It should be highlighted that the input module supports a variety of proteomic file formats as dataset input, including the following file extensions: `csv,.tsv,.txt,.xls,.xlsx,.xlsm,.mzTab,.mzIdentML(.mzid),.pepXML, and.protXML.` Datasets with other attachments must be converted to a supported format before loading. 
+It should be highlighted that the input module supports a variety of proteomic file formats as dataset input, including the following file extensions: `.csv,.tsv,.txt,.xls,.xlsx,.xlsm,.mzTab,.mzIdentML(.mzid),.pepXML,and.protXML.` Datasets with other attachments must be converted to a supported format before loading. 
 
 ```python
 import os
@@ -240,7 +240,7 @@ staver.main()
 
 ## Stage 4: Protein quantitative inference 
 
-In the realm of proteomics, accurate protein quantification and peptide-to-protein inference stand as cardinal processes, paving the way for the in-depth exploration of cellular systems and biological processes. The `PeptideToProteinInference` module is designed to infer proteins from high-confidence peptides. Which employs the MaxLFQ algorithm, renowned for its precision and robustness ([Cox et al., 2014; Mol Cell Proteomics; PMID: 24942700](https://doi:10.1074/mcp.M113.031591)), to estimate relative protein abundances from ion quantification in DIA-MS-based proteomics. Notably, we present an open-source implementation of the widely-used maximal peptide ratio extraction algorithm of the MaxLFQ algorithm in Python, previously only compatible with data-dependent acquisition mode in the closed-source MaxQuant software package.
+In the realm of proteomics, accurate protein quantification and peptide-to-protein inference stand as cardinal processes, paving the way for the in-depth exploration of cellular systems and biological processes. The `PeptideToProteinInference` module is designed to infer proteins from high-confidence peptides. Which employs the MaxLFQ algorithm, renowned for its precision and robustness ([Cox et al., 2014; *Mol Cell Proteomics*](https://www.mcponline.org/article/S1535-9476(20)33310-7/fulltext)), to estimate relative protein abundances from ion quantification in DIA-MS-based proteomics. Notably, we present an open-source implementation of the widely-used maximal peptide ratio extraction algorithm of the MaxLFQ algorithm in Python, previously only compatible with data-dependent acquisition mode in the closed-source MaxQuant software package.
 
 The custom-defined `MaxLFQ` function for protein quantification in the DIA data processing pipeline was integrated into the `PeptideToProteinInference` module. The following elucidates the process of implementing the Protein Quantification (Peptide-to-Protein Inference) Module.
 
@@ -358,7 +358,7 @@ class MaxLFQOptimizer:
 
         N = X.shape[1]
 
-        # 使用 numba 加速的函数调用
+        # Call accelerated function with numba
         cc = 0
         g = np.full(N, np.nan)
         for i in range(N):
@@ -396,7 +396,7 @@ If `w` contains non-NaN values, the function checks if all samples within each g
 If the samples within each group have different labels, the function updates the labels to NaN for the samples with NaN estimates, and returns a dictionary with `w` as the `'estimate'` value and a string representation of the updated labels joined by ';' as the `'annotation'` value.
 
 ### Usage
-To enhance the `maxLFQ` algorithm's performance in processing large-scale proteomics data, we have optimized its computational efficiency. Additionally, we evaluated and compared its performance across datasets of varying sample sizes. For more details, please refer to the [documentation](https://opensource.salesforce.com/STAVER/latest/staver.html#protein-quantification-peptide-to-protein-inference).
+To enhance the `maxLFQ` algorithm's performance in processing large-scale proteomics data, we have optimized its computational efficiency. Additionally, we evaluated and compared its performance across datasets of varying sample sizes. For more details, please refer to the [benchmark_notebook](https://github.com/Ran485/STAVER/blob/main/staver/notebooks/MaxLFQ_benchmark.ipynb).
 
 **Example usage:**
 ```python
@@ -417,7 +417,7 @@ print(result)
 ```
 
 
-## 5、STAVER pipeline module
+## Workflow: STAVER pipeline module
 The `STAVER` algorithm, is implemented and encapsulated in the `staver_pipeline` module, offers a comprehensive tool for proteomics data analysis. It streamlines the entire process from raw data preprocessing to final result generation. As a command-line based module, it enables efficient processing of large-scale DIA MS data using the standardized `STAVER` algorithm, primarily aimed at `variation reduction`. The module's key features include:
 
 - **High Flexibility:** It supports multiple input file formats and allows users to adjust various parameters to suit their specific analysis requirements.
