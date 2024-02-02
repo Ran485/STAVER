@@ -19,6 +19,7 @@ import os
 
 from staver import Staver
 from utils import save_log
+from multiprocessing import cpu_count
 
 
 class ValidateParser:
@@ -92,6 +93,20 @@ class ValidateParser:
                 f"Invalid float value: '{value}', must be a float between 0-1."
             )
         return float_value
+
+    @staticmethod
+    def valid_list(value):
+        if not isinstance(value, list) or len(value) != 2:
+            raise argparse.ArgumentTypeError(
+                f"Invalid list value: '{value}', must be a list of two elements."
+            )
+        # Check if both elements are floats and within the range [0, 1]
+        if all(isinstance(i, float) and 0 <= i <= 1 for i in value):
+            return value
+        else:
+            raise argparse.ArgumentTypeError(
+                f"Invalid list value: '{value}', must be a list of two floats between 0-1."
+            )
 
 
 def print_arguments(args):
@@ -170,10 +185,11 @@ def staver_pipeline(args=None):
     parser.add_argument(
         "-n",
         "--thread_numbers",
-        required=True,
+        required=False,
         dest="number_threshods",
         type=ValidateParser.valid_int,
-        help="The number of thresholds for computer operations",
+        default=cpu_count - 2,
+        help="The number of threads for computer operations",
     )
     parser.add_argument(
         "-i",
@@ -216,20 +232,20 @@ def staver_pipeline(args=None):
         help="Setting the FDR threshold (default: 0.01)",
     )
     parser.add_argument(
-        "-c",
+        "-ct_sl",
         "--count_cutoff_same_libs",
         required=False,
         type=ValidateParser.valid_int,
-        default=1,
-        help="Setting the count cutoff of same files (default: 1)",
+        default=2,
+        help="Setting the count cutoff of same files (default: 2)",
     )
     parser.add_argument(
-        "-d",
+        "-ct_dl",
         "--count_cutoff_diff_libs",
         required=False,
         type=ValidateParser.valid_int,
-        default=2,
-        help="Setting the count cutoff of different files (default: 2)",
+        default=1,
+        help="Setting the count cutoff of different files (default: 1)",
     )
     parser.add_argument(
         "-pep_cv",
@@ -241,6 +257,42 @@ def staver_pipeline(args=None):
             for the peptides (default: 0.3)",
     )
     parser.add_argument(
+        "-rt_rsd",
+        "--rt_relative_deviation",
+        required=False,
+        type=ValidateParser.valid_float,
+        default=0.05,
+        help="Setting relative retention time deviation threshold \
+        for the peptides (default: 0.05)",
+    )
+    parser.add_argument(
+        "-intensity_cutoff",
+        "--intensity_cutoff",
+        required=False,
+        type=ValidateParser.valid_float,
+        default=0.25,
+        help="Setting the log-transformed intensity threshold \
+        for the peptides (default: 0.25)",
+    )
+    parser.add_argument(
+        "-qc_cutoff",
+        "--quality_control_cutoff",
+        required=False,
+        type=ValidateParser.valid_float,
+        default=1,
+        help="Setting the Ensemble Outlier Score threshold \
+        for the samples of dataset (default: 1)",
+    )
+    parser.add_argument(
+        "-qc_viz_out",
+        "--qc_visualization_output",
+        required=False,
+        type=ValidateParser.valid_output_path,
+        default="./qc_visualizations.pdf",
+        help="Setting the qc visualizations output file path \
+            (default: ./qc_visualizations.pdf)",
+    )
+    parser.add_argument(
         "-pro_cv",
         "--proteins_cv_thresh",
         required=False,
@@ -250,13 +302,30 @@ def staver_pipeline(args=None):
             for the proteins (default: 0.3)",
     )
     parser.add_argument(
+        "-pep_extract",
+        "--peptide_extraction",
+        required=False,
+        type=bool,
+        default=False,
+        help="Enable or disable peptide extraction (default: False)",
+    )
+    parser.add_argument(
+        "-pcs_thresh",
+        "--peptide_confidence_score_thresh",
+        required=False,
+        type=ValidateParser.valid_list,
+        default=[0.8, 0.6],
+        help="Setting the peptide confidence score thresholds \
+        for the peptides (default: [0.8, 0.6])",
+    )
+    parser.add_argument(
         "-na_thresh",
         "--na_threshold",
         required=False,
         type=ValidateParser.valid_float,
-        default=0.3,
-        help="Setting the minimum threshold for \
-                NUll peptides (default: 0.3)",
+        default=0,
+        help="Setting the minimum threshold for missing values in the \
+                final estimated protein abundance (default: 0.0)",
     )
     parser.add_argument(
         "-top",

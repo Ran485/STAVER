@@ -1,5 +1,16 @@
 Release notes
 =============
+0.1.4 (2024-2-1)
+------------------
+
+Enhancements:
+
+* Updated the detaild description for the `Tutorials` in the documentation
+* Added a detailed information about "data preparation and format requirements".
+* Added a detailed description of the "Parameters" for the `STAVER` pipeline.
+* Clarified the minimum requirements and for running the STAVER pipeline.
+
+
 0.1.3 (2023-11-14)
 ------------------
 
