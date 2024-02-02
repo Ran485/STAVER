@@ -6,7 +6,7 @@ Welcome to STAVER's documentation!
    :alt: STAVER icon
    :align: right
 
-``staver`` implements the STAVER (**St**\ andardized Benchmark Dataset-Based **A**\ lgorithm for **V**\ ariation **E**\ ffective **R**\ eduction) algorithm, for removing unwanted noise information in large-scale DIA proteome data. ``STAVER``, featuring a modular design, provides flexible compatibility with existing DIA-MS data analysis pipelines
+``staver`` implements the STAVER (**St**\ andardized Benchmark Dataset-Based **A**\ lgorithm for **V**\ ariation **E**\ ffective **R**\ eduction) algorithm, for removing unwanted noise information in large-scale DIA proteome data. ``STAVER``, featuring a modular design, provides flexible compatibility with existing DIA-MS data analysis pipelines.
 
 In the context of DIA proteomics, the DIA-MS data is inherently complex and requires a spectral library construction, typically using either DDA data or predictive deep learning-based methods. Building these libraries from complex sample-derived spectra or predictions based on the protein sequence database could introduce unwanted noise, potentially increasing the risk of false discoveries and introducing variability into the DIA proteome searches and quantification. Therefore, a robust algorithm is imperative for discerning and eliminating extraneous noise generated during the library search process, ensuring trustworthy spectrum identification and accurate protein quantification. 
 
