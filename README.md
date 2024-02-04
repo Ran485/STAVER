@@ -75,8 +75,8 @@ python  ./staver_pipeline.py \
         --output_peptide < The processed DIA peptide data output directory > \
         --output_protein < The processed DIA protein data output directory > \
         --fdr_threshold < Default to 0.01 > \
-        --count_cutoff_same_libs < Default to 1 > \
-        --count_cutoff_diff_libs < Default to 2 > \
+        --count_cutoff_same_libs < Default to 2 > \
+        --count_cutoff_diff_libs < Default to 1 > \
         --peptides_cv_thresh < Default to 0.3 > \
         --na_threshold < Default to 0.3 > \
         --top_precursor_ions < Default to 6 > \
