@@ -25,7 +25,7 @@ from data import *
 from plots import *
 from MaxLFQ import *
 from peptide_scoring import *
-
+from quality_control import *
 
 """
 High Confidence Peptide Identification

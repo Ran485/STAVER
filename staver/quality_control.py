@@ -354,18 +354,6 @@ class EnsembleOutlierDetection(OutlierDetection):
         plt.show()
 
 
-def generate_data(contamination=0.00, n_samples=200, n_proteins=7000):
-    rng = np.random.RandomState(42)
-    X_inliers = rng.normal(
-        loc=0, scale=1, size=(int((1 - contamination) * n_samples), n_proteins)
-    )
-    X_outliers = rng.uniform(
-        low=-6, high=6, size=(int(contamination * n_samples), n_proteins)
-    )
-    X = np.concatenate([X_inliers, X_outliers], axis=0)
-    return X
-
-
 if __name__ == "__main__":
     data = pd.read_csv(
         "/Users/ranpeng/Desktop/github/STAVER/staver/results/CRC_051865_library_abudance.csv",
